@@ -166,7 +166,7 @@ header .active_header_tab {
 </style>
 
 <script>
-const Locale = require("../helpers/Locale.js");
+import Locale from "@/helpers/Locale.js";
 
 export default {
   data() {

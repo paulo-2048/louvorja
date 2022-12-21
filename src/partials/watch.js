@@ -1,3 +1,5 @@
+import { useLocale } from 'vuetify'
+
 export default {
     data: {
         handler: function () {
@@ -6,7 +8,7 @@ export default {
         deep: true
     },
     lang: function () {
-        this.$vuetify.lang.current = this.$store.state.lang;
+        this.$vuetify.locale.current = this.$store.state.lang;
         this.$i18n.locale = this.$store.state.lang;
         this.$store.state.data.lang = this.$store.state.lang;
     },

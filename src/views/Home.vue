@@ -21,7 +21,7 @@ export default {
     return this.$store.state;
   },
   components: {
-    ico: () => import(`@/components/Icon.vue`),
+    ico: () => import('@/components/Icon.vue'),
   },
 };
 </script>

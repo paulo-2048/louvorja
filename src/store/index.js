@@ -1,9 +1,6 @@
-import * as Vue from 'vue'
 import * as Vuex from 'vuex'
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+export default Vuex.createStore({
   state: {
     desktop: typeof desktop !== "undefined" ? desktop : false,
     debug: false,

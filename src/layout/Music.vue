@@ -220,7 +220,7 @@
 
 
 <script>
-const Audio = require("@/helpers/Audio.js");
+import Audio from"@/helpers/Audio.js";
 
 export default {
   data() {

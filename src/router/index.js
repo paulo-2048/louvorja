@@ -1,108 +1,106 @@
-import * as Vue from 'vue';
-import * as VueRouter from 'vue-router';
-
-Vue.use(VueRouter);
+import * as VueRouter from "vue-router";
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
+    path: "/",
+    name: "home",
     icon: "louvorja",
     tab: false,
-    component: () => import('@/views/Home.vue')
+    component: () => import("@/views/Home.vue"),
   },
   {
-    path: '/hymnal',
-    name: 'hymnal',
+    path: "/hymnal",
+    name: "hymnal",
     tab: true,
     //icon: "book-open-cover",
     icon: "hasd",
-    component: () => import('@/views/Hymnal.vue')
+    component: () => import("@/views/Hymnal.vue"),
   },
   {
-    path: '/collections',
-    name: 'collections',
+    path: "/collections",
+    name: "collections",
     tab: true,
     icon: "music",
-    component: () => import('@/views/Collections.vue')
+    component: () => import("@/views/Collections.vue"),
   },
   {
-    path: '/find-musics',
-    name: 'find-musics',
+    path: "/find-musics",
+    name: "find-musics",
     tab: true,
     icon: "magnifying-glass",
-    component: () => import('@/views/FindMusic.vue')
+    component: () => import("@/views/FindMusic.vue"),
   },
   {
-    path: '/online-videos',
-    name: 'online-videos',
+    path: "/online-videos",
+    name: "online-videos",
     tab: true,
     icon: "youtube",
-    component: () => import('@/views/ScheduledItems.vue')
+    component: () => import("@/views/ScheduledItems.vue"),
   },
   {
-    path: '/bible',
-    name: 'bible',
+    path: "/bible",
+    name: "bible",
     tab: true,
     icon: "book-bible",
-    component: () => import('@/views/ScheduledItems.vue')
+    component: () => import("@/views/ScheduledItems.vue"),
   },
   {
-    path: '/liturgy',
-    name: 'liturgy',
+    path: "/liturgy",
+    name: "liturgy",
     tab: true,
     icon: "list-timeline",
-    component: () => import('@/views/ScheduledItems.vue')
+    component: () => import("@/views/ScheduledItems.vue"),
   },
   {
-    path: '/scheduled-items',
-    name: 'scheduled-items',
+    path: "/scheduled-items",
+    name: "scheduled-items",
     tab: true,
     icon: "calendar",
-    component: () => import('@/views/ScheduledItems.vue')
+    component: () => import("@/views/ScheduledItems.vue"),
   },
   {
-    path: '/stopwatch',
-    name: 'stopwatch',
+    path: "/stopwatch",
+    name: "stopwatch",
     tab: true,
     icon: "stopwatch",
-    component: () => import('@/views/Stopwatch.vue')
+    component: () => import("@/views/Stopwatch.vue"),
   },
   {
-    path: '/clock',
-    name: 'clock',
+    path: "/clock",
+    name: "clock",
     tab: true,
     icon: "clock",
-    component: () => import('@/views/Clock.vue')
+    component: () => import("@/views/Clock.vue"),
   },
   {
-    path: '/worship-timer',
-    name: 'worship-timer',
+    path: "/worship-timer",
+    name: "worship-timer",
     tab: true,
     icon: "alarm-clock",
-    component: () => import('@/views/Clock.vue')
+    component: () => import("@/views/Clock.vue"),
   },
   {
-    path: '/sweepstake',
-    name: 'sweepstake',
+    path: "/sweepstake",
+    name: "sweepstake",
     tab: true,
     icon: "ticket",
-    component: () => import('@/views/Clock.vue')
+    component: () => import("@/views/Clock.vue"),
   },
   {
-    path: '/slide-editor',
-    name: 'slide-editor',
+    path: "/slide-editor",
+    name: "slide-editor",
     tab: true,
-    component: () => import('@/views/SlideEditor.vue')
+    component: () => import("@/views/SlideEditor.vue"),
   },
   {
-    path: '*',
-    redirect: '/'
-  }
-]
+    path: '/:pathMatch(.*)*',
+    redirect: "/",
+  },
+];
 
-const router = new VueRouter({
-  routes
-})
+const router = VueRouter.createRouter({
+  history: VueRouter.createWebHashHistory(),
+  routes,
+});
 
-export default router
+export default router;

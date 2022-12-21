@@ -1,15 +1,17 @@
-import * as Vue from 'vue';
-import * as Vuetify from 'vuetify/lib/framework';
-
-Vue.use(Vuetify);
+import 'vuetify/styles'
+import * as Vuetify from "vuetify";
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
 
 // Translation provided by Vuetify (javascript)
-import pt from 'vuetify/lib/locale/pt'
-import es from 'vuetify/lib/locale/es'
+import pt from "vuetify/lib/locale/pt";
+import es from "vuetify/lib/locale/es";
 
-export default new Vuetify({
-    lang: {
-        locales: { pt, es },
-        current: 'pt',
-    },
-})
+export default Vuetify.createVuetify({
+  components,
+  directives,
+  locale: {
+    locale: "pt",
+    messages: { pt, es },
+  },
+});
