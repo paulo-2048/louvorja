@@ -126,7 +126,7 @@
 
 <script>
 const Audio = require("@/helpers/Audio.js");
-import filters from "@/filters";
+import filters from "@/partials/filters";
 
 export default {
   filters,

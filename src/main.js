@@ -2,7 +2,7 @@ import * as Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify'
-import i18n from './i18n'
+import i18n from './partials/i18n'
 import {merge as deepAssign} from 'lodash/merge';
 import store from './store/index.js'
 
@@ -14,8 +14,8 @@ import './plugins/vue-shortkey.js'
 
 import './assets/dist/css/custom.css';
 
-import computed from './computed';
-import watch from './watch';
+import computed from './partials/computed';
+import watch from './partials/watch';
 
 Vue.config.productionTip = false
 
