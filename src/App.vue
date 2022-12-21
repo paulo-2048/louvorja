@@ -2,7 +2,6 @@
   <v-app :dark="$root.data.layout.dark">
     <app-side-bar />
     <app-dialog />
-    <!-- <app-store /> -->
     <app-alert />
     <app-lyric />
 
@@ -33,22 +32,32 @@ import DevTools from "./helpers/DevTools";
 import Locale from "./helpers/Locale";
 import Data from "./helpers/Data";
 
+import AppSideBar from "@/layout/SideBar.vue";
+import AppDialog from "@/layout/Dialog.vue";
+import AppAlert from "@/layout/Alert.vue";
+import AppLyric from "@/layout/Lyric.vue";
+import AppHeader from "@/layout/Header.vue";
+import AppTabs from "@/layout/TabsPages.vue";
+import AppPlayer from "@/layout/Player.vue";
+import AppProgress from "@/layout/Progress.vue";
+import AppFooter from "@/layout/Footer.vue";
+import AppMusicBar from "@/layout/Music.vue";
+
 export default {
   data() {
     return this.$store.state;
   },
   components: {
-    AppSideBar: () => import("@/layout/SideBar.vue"),
-    AppDialog: () => import("@/layout/Dialog.vue"),
-    //AppStore: () => import("@/layout/Store.vue"),
-    AppAlert: () => import("@/layout/Alert.vue"),
-    AppLyric: () => import("@/layout/Lyric.vue"),
-    AppHeader: () => import("@/layout/Header.vue"),
-    AppTabs: () => import("@/layout/TabsPages.vue"),
-    AppPlayer: () => import("@/layout/Player.vue"),
-    AppProgress: () => import("@/layout/Progress.vue"),
-    AppFooter: () => import("@/layout/Footer.vue"),
-    AppMusicBar: () => import("@/layout/Music.vue"),
+    AppSideBar,
+    AppDialog,
+    AppAlert,
+    AppLyric,
+    AppHeader,
+    AppTabs,
+    AppPlayer,
+    AppProgress,
+    AppFooter,
+    AppMusicBar,
   },
   created() {
     document.title = "Louvor JA";
@@ -180,10 +189,10 @@ export default {
     }, 1000);
 
     setTimeout(function () {
-        const preload = document.getElementById("preload");
-        if (preload){
-            preload.style.display = "none";
-        }
+      const preload = document.getElementById("preload");
+      if (preload) {
+        preload.style.display = "none";
+      }
     }, 1000);
   },
 };

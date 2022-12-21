@@ -11,8 +11,8 @@
       <v-tab>Fundo</v-tab>
       <v-tab>Extras</v-tab>
     </v-tabs>
-    <v-tabs-items v-model="tab">
-      <v-tab-item class="pa-3">
+    <v-window v-model="tab">
+      <v-window-item class="pa-3">
         <v-row>
           <l-input
             col="12"
@@ -76,8 +76,8 @@
             Restaurar Formatação
           </v-btn>
         </v-row>
-      </v-tab-item>
-      <v-tab-item class="pa-3">
+      </v-window-item>
+      <v-window-item class="pa-3">
         <v-row>
           <l-input
             col="12"
@@ -129,8 +129,8 @@
             Restaurar Formatação
           </v-btn>
         </v-row>
-      </v-tab-item>
-      <v-tab-item class="pa-3">
+      </v-window-item>
+      <v-window-item class="pa-3">
         <v-row>
           <l-input
             col="12"
@@ -149,8 +149,8 @@
             Restaurar Formatação
           </v-btn>
         </v-row>
-      </v-tab-item>
-    </v-tabs-items>
+      </v-window-item>
+    </v-window>
   </v-navigation-drawer>
 </template>
 

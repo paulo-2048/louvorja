@@ -166,12 +166,7 @@
             style="overflow: auto; flex: auto"
             id="slide-scroll"
           >
-            <v-skeleton-loader
-              v-if="media.loading"
-              type="list-item-two-line@3"
-              class="px-3"
-            >
-            </v-skeleton-loader>
+            <v-progress-circular v-if="media.loading" indeterminate />
 
             <div v-else>
               <v-list dense>

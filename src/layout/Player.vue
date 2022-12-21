@@ -10,8 +10,7 @@
         <div class="flex-grow-0">
           <v-list-item class="px-2">
             <v-list-item-content>
-              <v-skeleton-loader v-if="player.loading" type="text" class="px-3">
-              </v-skeleton-loader>
+              <v-progress-circular v-if="player.loading" indeterminate />
               <v-list-item-title v-if="!player.loading">{{
                 player.name
               }}</v-list-item-title>

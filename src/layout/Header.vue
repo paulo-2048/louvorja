@@ -101,12 +101,12 @@
           {{ $t(item.tab) }}
         </v-tab>
       </v-tabs>
-      <v-tabs-items
+      <v-window
         v-model="$store.state.active_header_tab"
         :dark="$store.state.data.layout.dark"
         style="min-height: 72px"
       >
-        <v-tab-item v-for="(item, index) in items_tabs" :key="index">
+        <v-window-item v-for="(item, index) in items_tabs" :key="index">
           <v-slide-group show-arrows>
             <keep-alive :include="tabs">
               <transition>
@@ -133,8 +133,8 @@
               </v-btn-toggle>
             </template>
           </v-slide-group>
-        </v-tab-item>
-      </v-tabs-items>
+        </v-window-item>
+      </v-window>
     </v-card>
   </header>
 </template>

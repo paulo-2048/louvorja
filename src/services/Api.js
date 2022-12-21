@@ -35,11 +35,11 @@ export async function get(route, options = null, callback = function () {}) {
   }
 }
 export function base_url() {
-  if (window.location.hostname == "localhost") {
+  /*if (window.location.hostname == "localhost") {
     return "http://localhost:8000";
-  } else {
+  } else {*/
     return "https://api.louvorja.com.br";
-  }
+  //}
 }
 export function url() {
   return `${this.base_url()}/${this.lang()}`;

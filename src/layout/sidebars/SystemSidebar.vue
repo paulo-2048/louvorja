@@ -23,9 +23,9 @@
         <v-icon left> {{ m.icon }} </v-icon>
         {{ m.tab }}
       </v-tab>
-
-      <v-tabs-items v-model="active_menu" :dark="$store.state.data.layout.dark">
-        <v-tab-item v-for="m in menu" :key="m.tab">
+    </v-tabs>
+      <v-window v-model="active_menu" :dark="$store.state.data.layout.dark">
+        <v-window-item v-for="m in menu" :key="m.tab">
           <!--<div v-if="m.component">-->
           <div class="text-h6 mt-3">
             {{ m.tab }}
@@ -33,9 +33,8 @@
           <v-divider class="my-3"></v-divider>
           <component v-bind="menu" :is="m.component"></component>
           <!--  </div>-->
-        </v-tab-item>
-      </v-tabs-items>
-    </v-tabs>
+        </v-window-item>
+      </v-window>
   </v-navigation-drawer>
 </template>
 

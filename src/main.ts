@@ -6,7 +6,7 @@ import i18n from "./partials/i18n";
 import store from "./store/index.js";
 import Vue3Storage from "vue3-storage";
 import { StorageType } from "vue3-storage";
-import TreeView from "vue-json-tree-view";
+import JsonViewer  from "vue3-json-viewer";
 import * as FlagIcon from "vue-country-flag-next";
 import VueFullscreen from "vue-fullscreen";
 import ShortKey from "vue3-shortkey";
@@ -17,9 +17,8 @@ import "./assets/dist/css/custom.css";
 const app = createApp(App);
 
 app
-  .use(FlagIcon)
   .use(i18n)
-  .use(TreeView)
+  .use(JsonViewer)
   .use(router)
   .use(ShortKey, { prevent: ["input", "textarea"] })
   .use(store)
