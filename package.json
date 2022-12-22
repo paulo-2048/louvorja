@@ -17,8 +17,10 @@
   },
   "main": "background.js",
   "dependencies": {
+    "@mdi/font": "^7.1.96",
     "clipboard": "^2.0.11",
     "lodash": "^4.17.21",
+    "pinia": "^2.0.28",
     "vue": "^3.2.45",
     "vue-country-flag-next": "^2.3.2",
     "vue-fullscreen": "^3.1.1",
@@ -28,8 +30,7 @@
     "vue3-json-viewer": "^2.2.2",
     "vue3-shortkey": "^4.0.0",
     "vue3-storage": "^0.1.11",
-    "vuetify": "^3.0.5",
-    "vuex": "^4.1.0"
+    "vuetify": "^3.0.5"
   },
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "^0.8.1",
@@ -50,6 +51,7 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
     "run-p": "^0.0.0",
+    "sass": "^1.57.1",
     "typescript": "~4.7.4",
     "vite": "^4.0.0",
     "vitest": "^0.25.6",

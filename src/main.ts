@@ -10,9 +10,7 @@ import JsonViewer  from "vue3-json-viewer";
 import * as FlagIcon from "vue-country-flag-next";
 import VueFullscreen from "vue-fullscreen";
 import ShortKey from "vue3-shortkey";
-
-import "./assets/dist/css/custom.css";
-
+import { createPinia } from 'pinia';
 
 const app = createApp(App);
 
@@ -21,7 +19,7 @@ app
   .use(JsonViewer)
   .use(router)
   .use(ShortKey, { prevent: ["input", "textarea"] })
-  .use(store)
+  .use(createPinia())
   .use(Vue3Storage, { namespace: "lja_", storage: StorageType.Local })
   .use(vuetify)
   .use(VueFullscreen)

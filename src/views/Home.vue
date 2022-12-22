@@ -18,7 +18,7 @@
 <script>
 export default {
   data() {
-    return this.$store.state;
+    return this.$store?.state || {debug: true};
   },
   components: {
     ico: () => import('@/components/Icon.vue'),

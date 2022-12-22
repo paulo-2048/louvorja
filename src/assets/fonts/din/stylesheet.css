@@ -1,0 +1,72 @@
+@font-face {
+    font-family: 'DIN Condensed';
+    src: url('DINCondensed-Bold.eot');
+    src: url('DINCondensed-Bold.eot?#iefix') format('embedded-opentype'),
+        url('DINCondensed-Bold.woff2') format('woff2'),
+        url('DINCondensed-Bold.woff') format('woff'),
+        url('DINCondensed-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DIN Pro';
+    src: url('DINPro-CondItalic.eot');
+    src: url('DINPro-CondItalic.eot?#iefix') format('embedded-opentype'),
+        url('DINPro-CondItalic.woff2') format('woff2'),
+        url('DINPro-CondItalic.woff') format('woff'),
+        url('DINPro-CondItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DIN Pro';
+    src: url('DINPro-CondThin.eot');
+    src: url('DINPro-CondThin.eot?#iefix') format('embedded-opentype'),
+        url('DINPro-CondThin.woff2') format('woff2'),
+        url('DINPro-CondThin.woff') format('woff'),
+        url('DINPro-CondThin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DIN Condensed';
+    src: url('DINCondensed-Bold_1.eot');
+    src: url('DINCondensed-Bold_1.eot?#iefix') format('embedded-opentype'),
+        url('DINCondensed-Bold_1.woff2') format('woff2'),
+        url('DINCondensed-Bold_1.woff') format('woff'),
+        url('DINCondensed-Bold_1.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DIN Pro';
+    src: url('DINPro-CondThin_1.eot');
+    src: url('DINPro-CondThin_1.eot?#iefix') format('embedded-opentype'),
+        url('DINPro-CondThin_1.woff2') format('woff2'),
+        url('DINPro-CondThin_1.woff') format('woff'),
+        url('DINPro-CondThin_1.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DIN Pro';
+    src: url('DINPro-CondItalic_1.eot');
+    src: url('DINPro-CondItalic_1.eot?#iefix') format('embedded-opentype'),
+        url('DINPro-CondItalic_1.woff2') format('woff2'),
+        url('DINPro-CondItalic_1.woff') format('woff'),
+        url('DINPro-CondItalic_1.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
