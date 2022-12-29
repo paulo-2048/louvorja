@@ -1,5 +1,5 @@
-import { id, name } from "@/theme";
-import type { NamedThemeDefinition } from "@/theme";
+import { id, name } from "@/lib/theme";
+import type { NamedThemeDefinition } from "@/lib/theme";
 
 export default {
   id: id(import.meta),

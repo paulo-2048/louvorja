@@ -4,14 +4,28 @@
       <v-system-bar></v-system-bar>
 
       <v-app-bar title="Louvor JA">
-        <v-btn
-          :prepend-icon="
-            theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'
-          "
-          @click="toggleTheme"
-        >
-          Toggle Theme
-        </v-btn>
+        <v-spacer></v-spacer>
+        <template v-slot:append>
+          <v-menu
+            bottom
+            left
+            :close-on-content-click="true"
+            transition="slide-y-transition"
+          >
+            <template v-slot:activator="{ props }">
+              <v-btn :icon="themeIcon" v-bind="props"> </v-btn>
+            </template>
+
+            <v-list density="compact">
+              <v-list-item v-for="theme in themes" :key="theme.id">
+                <v-list-item @click="toggleTheme(theme.id)">
+                  <v-icon>{{ iconFor(theme) }}</v-icon>
+                  {{ theme.name }}
+                </v-list-item>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </template>
       </v-app-bar>
       <v-navigation-drawer> </v-navigation-drawer>
       <v-main>
@@ -37,22 +51,37 @@
 <script setup lang="ts">
 import { main as mainStore } from "@/store/index";
 import { useTheme } from "vuetify";
+import { capitalize } from "@/lib/string";
+import { defaultTheme } from "@/lib/theme";
+import { computed, ref, watch } from "vue";
 
 const store = mainStore();
 const theme = useTheme();
 
-store.ui.theme = theme.global.name;
+const themes = Object.entries(theme.themes.value).map((t) => {
+  return { id: t[0], name: t[1].name || capitalize(t[0]), dark: t[1].dark };
+});
 
-const toggleTheme = () => {
-  const actual = theme.global.name.value;
-  console.log(theme.global.name)
-  const newLight = actual.replace("dark", "light");
-  const newDark = actual.replace("light", "dark");
-  store.ui.theme = actual === newDark ? newLight : newDark;
-  theme.global.name.value = store.ui.theme;
+const toggleTheme = (newTheme, previousTheme) => {
+  selectedTheme.value = theme.global.name.value = store.ui.theme = newTheme;
 };
 
-window.matchMedia('(prefers-color-scheme: dark)').addListener(toggleTheme);
+store.ui.theme = theme.global.name;
+const selectedTheme = ref(store.ui.theme);
+watch(selectedTheme, toggleTheme);
+
+const iconFor = (theme) => {
+  return theme.dark ? "mdi-weather-night" : "mdi-weather-sunny";
+};
+
+const themeIcon = computed(() => {
+  console.log(selectedTheme.value);
+  return iconFor(themes.filter((t) => t.id === selectedTheme.value)[0]);
+});
+
+window.matchMedia("(prefers-color-scheme: dark)").addListener(() => {
+  toggleTheme(defaultTheme());
+});
 </script>
 
 <style></style>
