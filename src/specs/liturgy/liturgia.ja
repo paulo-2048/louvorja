@@ -1,0 +1,439 @@
+[Geral]
+7=item_20221105090917805;item_20221105090942117;item_20221105091003637;item_20221201224259649;item_20221201222101465;item_20221201225111329;item_20221201225222745;item_20221105091811788;item_20221029102750682;item_20221029102336779;item_20221112102300228;item_20221202220433440;item_20221201225849410;item_20221105102945368;item_20221202215611658;item_20221029102403075;item_20221105102611264;item_20221105103518415;item_20221021233637099;item_20221201223948371;item_20221105103534959;item_20221105102651264;item_20221021233533092;item_20221021233756427;item_20221029102730898;item_20221021233223525;item_20221021233257091;item_20221029105525469;item_20221029102847346;item_20221202225706438;item_20221021233347625;item_20221105103204456;item_20221202225721663;item_20221029103645153;item_20221021233930562;item_20221202230150755;item_20221029103123137;item_20221202204025777;item_20221029103442929;item_20221209215015891;item_20221029120306496;item_20221029103505929;item_20221029103527849;item_20221029103548224;
+AlteraOrdem-7=16/12/2022 22:37:48
+6=item_20221014211714365;item_20221014211749114;item_20221014223142093;item_20221014213903542;item_20221014213746004;item_20221014213949953;
+AlteraOrdem-6=14/10/2022 22:40:33
+1=item_20221120192528780;item_20221211185837279;item_20221211185540042;item_20221211185624523;
+AlteraOrdem-1=11/12/2022 18:58:39
+[item_20221014211714365]
+tipo=site
+item=informativo Mundial 
+cor=$004F0000
+subitem=Site https://www.youtube.com/watch?v=VsODZjZ7tis&t=3s&ab_channel=DanielGon%C3%A7alves
+url=https://www.youtube.com/watch?v=VsODZjZ7tis&t=3s&ab_channel=DanielGon%C3%A7alves
+checked=
+[item_20221014211749114]
+tipo=musica
+item=Louvor Escola Sabatina
+cor=$004F0000
+escolha=0
+musica=1880
+subtipo=hasd
+subitem=Hino nï¿½ 143 - Ao Olhar pra Cruz (Hinï¿½rio Adventista)
+checked=
+[item_20221014213746004]
+tipo=site
+item=PROVAI e VEDE
+cor=$004F0000
+subitem=Site https://www.youtube.com/watch?v=1rTC9GzM9Ko&ab_channel=IgrejaAdventistadoS%C3%A9timoDiaPartenon
+url=https://www.youtube.com/watch?v=1rTC9GzM9Ko&ab_channel=IgrejaAdventistadoS%C3%A9timoDiaPartenon
+checked=
+[item_20221014213903542]
+tipo=musica
+item=Louvor Culto 1
+cor=$004F0000
+escolha=0
+musica=2154
+subtipo=hasd
+subitem=Hino nï¿½ 407 - O Poder do Amor (Hinï¿½rio Adventista)
+checked=
+[item_20221014213949953]
+tipo=musica
+item=Louvor Culto 2
+cor=$004F0000
+escolha=0
+musica=1298
+subtipo=div
+subitem=Mï¿½sica Lï¿½ No Cï¿½u (Adoradores)
+checked=
+[item_20221014223142093]
+tipo=musica
+item=Ofertorio ENTREGA
+cor=$004F0000
+escolha=0
+musica=181
+subtipo=ja
+subitem=Mï¿½sica Entrega (2010 - Geraï¿½ï¿½o Esperanï¿½a)
+checked=
+[item_20221021233223525]
+tipo=musica
+item=1º Louvor do Culto 
+cor=$00003300
+escolha=0
+musica=1982
+subtipo=hasd
+subitem=Hino nº 245 - Lado a Lado (Hinário Adventista)
+checked=
+[item_20221021233257091]
+tipo=musica
+item=2º Louvor do Culto
+cor=$00003300
+escolha=0
+musica=1625
+subtipo=div
+subitem=Música Deus de Israel (Até que Ele Venha)
+checked=
+[item_20221021233347625]
+tipo=arquivo
+item=Sede - Pt 1 (Vídeo)
+cor=$00663300
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Momento de Oração\Sede - 1.mp4
+checked=
+subtipo=arq
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Momento de Oração\Sede - 1.mp4
+dir_info=E
+[item_20221021233533092]
+tipo=site
+item=Provai e Vede
+cor=$00003333
+subitem=Site https://www.youtube.com/watch?v=MqDUG71E7k4
+url=https://www.youtube.com/watch?v=MqDUG71E7k4
+checked=
+[item_20221021233637099]
+tipo=arquivo
+item=Se você quer ouvir uma história
+cor=clPurple
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Momento da Criança\se-voce-quer-ouvir-uma-historia_banda.wav
+checked=
+subtipo=arq
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Momento da Criança\se-voce-quer-ouvir-uma-historia_banda.wav
+dir_info=E
+[item_20221021233756427]
+tipo=musica
+item=Dízimos e Ofertas
+cor=$00003333
+escolha=0
+musica=181
+subtipo=ja
+subitem=Música Entrega (2010 - Geração Esperança)
+checked=
+[item_20221021233930562]
+tipo=anotacao
+item=Mensgem Musical (1) 
+cor=$00663300
+subitem=Orquestra
+checked=
+url=https://youtu.be/ulRoNiMercc
+[item_20221029102336779]
+tipo=arquivo
+item=Boas vindas
+cor=$00003399
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Identidade Visual\bem-vindos.jpg
+checked=
+subtipo=arq
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Identidade Visual\bem-vindos.jpg
+dir_info=E
+[item_20221029102403075]
+tipo=arquivo
+item=Culto de gratidão
+cor=$00003399
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Programação\Anúncios\Culto de gratidão.jpeg
+checked=
+subtipo=arq
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Programação\Anúncios\Culto de gratidão.jpeg
+dir_info=E
+[item_20221029102730898]
+tipo=categoria
+item=Louvor
+cor=$00003300
+[item_20221029102750682]
+tipo=categoria
+item=Intróito
+cor=$00003399
+[item_20221029102847346]
+tipo=categoria
+item=Momento de Oração / Mensagem Musical
+
+cor=$00663300
+[item_20221029103123137]
+tipo=categoria
+item=Mensagem Espiritual
+cor=clMaroon
+[item_20221029103442929]
+tipo=arquivo
+item=Mensagem Espiritual (Banner)
+cor=clMaroon
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Programação\Mensagem Espiritual\banner.jpg
+checked=
+subtipo=arq
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Programação\Mensagem Espiritual\banner.jpg
+dir_info=E
+[item_20221029103505929]
+tipo=anotacao
+item=Mensagem Musical
+cor=clMaroon
+subitem=Orquestra
+checked=
+url=https://youtu.be/Bvu30x4lTuA
+subtipo=arq
+dir=C:\Users\Moinhos - Projeï¿½ï¿½o\Desktop\Moinhos 26 nov 22\5 Tocou-me.ppt
+dir_info=E
+[item_20221029103527849]
+tipo=anotacao
+item=Oração Final
+cor=clMaroon
+subitem=
+checked=
+[item_20221029103548224]
+tipo=musica
+item=Despedida
+cor=clMaroon
+escolha=1
+musica=-1
+subtipo=escolha
+subitem=Clique para escolher a música
+checked=
+[item_20221029103645153]
+tipo=arquivo
+item=Sede - Pt 2 (Vídeo)
+cor=$00663300
+subtipo=arq
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Momento de Oração\Sede - 2.mp4
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Momento de Oração\Sede - 2.mp4
+dir_info=E
+checked=
+[item_20221029105525469]
+tipo=musica
+item=3º Louvor do Culto
+cor=$00003300
+escolha=1
+musica=-1
+subtipo=escolha
+subitem=Clique para escolher a música
+checked=
+[item_20221029120306496]
+tipo=arquivo
+item=Fundo musical - Apelo
+cor=clMaroon
+escolha=1
+musica=-1
+subtipo=arq
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Fundo Musical\Oceans-yt_H9U9E3c0Qzg.mp3
+checked=
+url=https://www.youtube.com/watch?v=hALIezl3nMg&ab_channel=JerryKim
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Fundo Musical\Oceans-yt_H9U9E3c0Qzg.mp3
+dir_info=E
+[item_20221105090917805]
+tipo=categoria
+item=Escola Sabatina
+cor=$004F0000
+[item_20221105090942117]
+tipo=arquivo
+item=[BG] Boas vindas / Oração Inicial
+cor=$004F0000
+subtipo=arq
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Escola Sabatina\bem-vindos.jpg  
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Escola Sabatina\bem-vindos.jpg
+dir_info=E
+checked=29/12/2022
+url=file:///C:/Users/glutz/Google%20Drive/Multim%C3%ADdia%20Moinhos/Recursos/Escola%20Sabatina/bem-vindos.jpg
+[item_20221105091003637]
+tipo=musica
+item=Louvor
+cor=$004F0000
+escolha=0
+musica=2246
+subtipo=hasd
+subitem=Hino nº 499 - Mansão Sobre o Monte (Hinário Adventista)
+checked=29/12/2022
+[item_20221105091811788]
+tipo=musica
+item=[PB] Mensagem Musical
+cor=$004F0000
+subitem=Clique para escolher a música
+url=https://www.youtube.com/watch?v=ZLafHW_KLGc
+checked=
+subtipo=escolha
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Programação\Mensagem Musical\01.mp3
+dir_info=E
+escolha=1
+musica=-1
+[item_20221105102611264]
+tipo=categoria
+item=Momento das Crianças
+cor=clPurple
+[item_20221105102651264]
+tipo=categoria
+item=Ofertório
+cor=$00003333
+[item_20221105102945368]
+tipo=anotacao
+item=Momento do Evangelismo
+cor=$00003399
+subitem=Luciano
+checked=
+[item_20221105103204456]
+tipo=anotacao
+item=Oração
+cor=$00663300
+subitem=Pr Heron
+checked=
+[item_20221105103518415]
+tipo=arquivo
+item=Imagem de Fundo
+cor=clPurple
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Momento da Criança\moinhos-kids-2.jpg
+checked=
+subtipo=arq
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Momento da Criança\moinhos-kids-2.jpg
+dir_info=E
+[item_20221105103534959]
+tipo=arquivo
+item=Se você quer ouvir uma história
+cor=clPurple
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Momento da Criança\se-voce-quer-ouvir-uma-historia_banda.wav
+checked=
+subtipo=arq
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Momento da Criança\se-voce-quer-ouvir-uma-historia_banda.wav
+dir_info=E
+[item_20221112102300228]
+tipo=arquivo
+item=Banner Anúncios
+cor=$00003399
+subtipo=arq
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Anúncios\banner.png
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Anúncios\banner.png
+dir_info=E
+checked=
+[item_20221120192528780]
+tipo=musica
+item=Louvor 1
+cor=$004F0000
+escolha=0
+musica=510
+subtipo=div
+subitem=Música Bendita Segurança (Hinário Adventista 1996)
+checked=
+[item_20221201222101465]
+tipo=site
+item=[BG] Estudo da Lição
+cor=$004F0000
+subitem=Site http://192.168.2.6:732/relogio/index.html
+url=http://192.168.2.6:732/relogio/index.html
+checked=29/12/2022
+subtipo=arq
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Escola Sabatina\capa-deezer.jpg
+dir_info=E
+[item_20221201223948371]
+tipo=anotacao
+item=Historinha
+cor=clPurple
+subitem=Pr Rubens e Marcela
+checked=
+url=https://www.youtube.com/watch?v=PLqcZZgrzD8&feature=share
+[item_20221201224259649]
+tipo=site
+item=Informativo Mundial da Missões
+cor=$004F0000
+subitem=Site https://www.youtube.com/watch?v=QwepELVjDnM
+url=https://www.youtube.com/watch?v=QwepELVjDnM
+checked=29/12/2022
+[item_20221201225111329]
+tipo=site
+item=CRM / Quiz / Encerramento Lição
+cor=$004F0000
+subitem=Site http://192.168.2.6:732/escola-sabatina/quiz-es.html?https://minhaes.org/quiz/resposta-quiz.php?key=T0RZNE9ESTI=
+url=http://192.168.2.6:732/escola-sabatina/quiz-es.html?https://minhaes.org/quiz/resposta-quiz.php?key=T0RZNE9ESTI=
+checked=
+[item_20221201225222745]
+tipo=arquivo
+item=[BG] Mensagem Musical / Oração Final / Despedida
+cor=$004F0000
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Escola Sabatina\voce-e-a-igreja.gif
+checked=
+subtipo=arq
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Escola Sabatina\voce-e-a-igreja.gif
+dir_info=E
+[item_20221201225849410]
+tipo=arquivo
+item=Momento PAO - Projeto Amor e Oração
+cor=$00003399
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\PAO - Projeto Amor e Oração\banner.jpg
+checked=
+subtipo=arq
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\PAO - Projeto Amor e Oração\banner.jpg
+dir_info=E
+[item_20221202204025777]
+tipo=anotacao
+item=Pré Mensagem Espiritual
+cor=clMaroon
+subitem=Algo que o pregador queira usar antes da mensagem espiritual
+checked=
+[item_20221202215611658]
+tipo=arquivo
+item=Estudos avançados
+cor=$00003399
+subtipo=arq
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Programação\Anúncios\ciclo-estudos-avançados-2022-12.jpg
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Programação\Anúncios\ciclo-estudos-avançados-2022-12.jpg
+dir_info=E
+checked=
+[item_20221202220433440]
+tipo=arquivo
+item=Mutirão de Natal
+cor=$00003399
+subtipo=arq
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Mutirão de Natal\2022\Video-encerramento.mp4
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Mutirão de Natal\2022\Video-encerramento.mp4
+dir_info=E
+checked=
+[item_20221202225706438]
+tipo=arquivo
+item=Sede - Pt 1 (Slides)
+cor=$00663300
+subtipo=arq
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Momento de Oração\Sede - Jeferson Pillar - Parte 1.slja
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Momento de Oração\Sede - Jeferson Pillar - Parte 1.slja
+dir_info=E
+checked=
+[item_20221202225721663]
+tipo=arquivo
+item=Sede - Pt 2 (Slides)
+cor=$00663300
+subtipo=arq
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Momento de Oração\Sede - Jeferson Pillar - Parte 2.slja
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Momento de Oração\Sede - Jeferson Pillar - Parte 2.slja
+dir_info=E
+checked=
+[item_20221202230150755]
+tipo=anotacao
+item=Mensgem Musical (2)
+cor=$00663300
+subitem=A definir
+checked=
+[item_20221209215015891]
+tipo=arquivo
+item=Mensagem Espiritual (Slides)
+cor=clMaroon
+checked=
+subtipo=arq
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Programação\Mensagem Espiritual\slides.ppsx
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Programação\Mensagem Espiritual\slides.ppsx
+dir_info=E
+[item_20221211185540042]
+tipo=musica
+item=Louvor 2
+cor=$004F0000
+escolha=0
+musica=1325
+subtipo=ja
+subitem=Música Em Ti (2016-2017 - Adoradores 2)
+checked=
+[item_20221211185624523]
+tipo=musica
+item=Louvor 3
+cor=$004F0000
+escolha=0
+musica=98
+subtipo=ja
+subitem=Música Te Agradeço (2002 - Você me Pertence)
+checked=
+[item_20221211185837279]
+tipo=arquivo
+item=Fundo Musical - Leitura Bíblia
+cor=$004F0000
+subtipo=arq
+subitem=Arquivo C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Fundo Musical\Do Alto-yt_NVZFAjreJQA.mp3
+dir=C:\Users\Moinhos - Projeção\Google Drive\Multimídia Moinhos\Recursos\Fundo Musical\Do Alto-yt_NVZFAjreJQA.mp3
+dir_info=E
+checked=

@@ -52,25 +52,44 @@
 import { main as mainStore } from "@/store/index";
 import { useTheme } from "vuetify";
 import { capitalize } from "@/lib/string";
-import { defaultTheme } from "@/lib/theme";
+import type { NamedThemeDefinition } from "@/lib/theme";
+import { defaultTheme, isDarkMode } from "@/lib/theme";
 import { computed, ref, watch } from "vue";
 
 const store = mainStore();
 const theme = useTheme();
 
 const themes = Object.entries(theme.themes.value).map((t) => {
-  return { id: t[0], name: t[1].name || capitalize(t[0]), dark: t[1].dark };
+  return {
+    id: t[0],
+    name: (<NamedThemeDefinition>t[1]).name || capitalize(t[0]),
+    dark: t[1].dark,
+  };
+});
+themes.splice(0, 0, {
+  id: "auto",
+  name: "Auto",
+  dark: isDarkMode(),
 });
 
-const toggleTheme = (newTheme, previousTheme) => {
-  selectedTheme.value = theme.global.name.value = store.ui.theme = newTheme;
+const toggleTheme = (newTheme: any) => {
+  // theme follows browser/operating system unless manually setted
+  newTheme = typeof newTheme === "string" ? newTheme : newTheme.toString();
+  if (newTheme === "auto") {
+    selectedTheme.value = store.ui.theme = newTheme;
+    theme.global.name.value = defaultTheme();
+  } else if (store.ui.theme === "auto") {
+    selectedTheme.value = theme.global.name.value = newTheme;
+  } else {
+    selectedTheme.value = theme.global.name.value = store.ui.theme = newTheme;
+  }
 };
 
-store.ui.theme = theme.global.name;
-const selectedTheme = ref(store.ui.theme);
-watch(selectedTheme, toggleTheme);
+store.ui.theme = theme.global.name.value;
+const selectedTheme = ref<string>(store.ui.theme);
+watch(selectedTheme, (n, o) => toggleTheme(n));
 
-const iconFor = (theme) => {
+const iconFor = (theme: { dark: boolean }) => {
   return theme.dark ? "mdi-weather-night" : "mdi-weather-sunny";
 };
 
