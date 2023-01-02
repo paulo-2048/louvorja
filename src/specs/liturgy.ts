@@ -5,7 +5,7 @@ export interface Liturgy {
   name: string;
 }
 
-export function importIni(iniStr: string) {
+export function liturgyFromIni(iniStr: string) {
   const config = ini.parse(iniStr);
   const geral = config.Geral;
   const json: Array<Liturgy> = [];

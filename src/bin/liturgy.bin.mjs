@@ -1,7 +1,7 @@
-import fs from "fs";
-import { fileURLToPath } from "url";
-import path from "path";
-import { importIni } from "@/specs/liturgy";
+import fs from "node:fs";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+import { importIni } from "../specs/liturgy";
 
 function spec(name) {
   return path.join(specsdir, name);
