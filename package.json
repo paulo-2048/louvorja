@@ -7,5 +7,12 @@
         "shared",
         "server",
         "app"
-    ]
+    ],
+    "scripts": {
+        "clean": "lerna clean --yes && yarn",
+        "build": "lerna run build"
+    },
+    "devDependencies": {
+        "lerna": "^6.3.0"
+    }
 }

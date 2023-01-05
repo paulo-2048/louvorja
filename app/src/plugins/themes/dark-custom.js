@@ -1,9 +1,11 @@
-import { id, name } from "@/lib/theme";
-import type { NamedThemeDefinition } from "@/lib/theme";
+import { id, name, NamedThemeDefinition } from "@louvorja/shared/_theme";
 
+/**
+ * @type {NamedThemeDefinition}
+ */
 export default {
   id: id(import.meta),
-  theme: <NamedThemeDefinition>{
+  theme: {
     dark: true,
     name: name(import.meta),
     colors: {

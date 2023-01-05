@@ -2,9 +2,9 @@
     "name": "@louvorja/shared",
     "version": "0.1.0",
     "license": "MIT",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "files": [
-        "/dist"
-    ]
+    "type": "module",
+    "main": "index.js",
+    "devDependencies": {
+        "jsdoc": "^4.0.0"
+    }
 }

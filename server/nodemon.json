@@ -2,7 +2,7 @@
     "watch": [
         "src"
     ],
-    "ext": ".ts,.js",
+    "ext": ".mjs,.js",
     "ignore": [],
-    "exec": "yarn ts-node ./src/index.ts"
+    "exec": "yarn node ./src/index.mjs"
 }

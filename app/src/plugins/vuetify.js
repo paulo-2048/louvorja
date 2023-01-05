@@ -10,7 +10,7 @@ import es from "vuetify/lib/locale/es";
 
 import lightCustom from "./themes/light-custom";
 import darkCustom from "./themes/dark-custom";
-import { defaultTheme } from "@/lib/theme";
+import { defaultTheme } from "@louvorja/shared/_theme";
 const THEMES = Object.fromEntries([lightCustom, darkCustom].map((t) => [t.id, t.theme]));
 
 export default Vuetify.createVuetify({
