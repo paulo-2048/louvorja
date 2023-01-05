@@ -4,7 +4,8 @@
     "license": "MIT",
     "type": "module",
     "main": "index.js",
-    "devDependencies": {
-        "jsdoc": "^4.0.0"
+    "devDependencies": {},
+    "dependencies": {
+        "ini": "^3.0.1"
     }
 }

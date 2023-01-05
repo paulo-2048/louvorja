@@ -1,18 +1,25 @@
 {
-    "name": "louvorja",
-    "version": "0.1.0",
-    "private": true,
-    "license": "MIT",
-    "workspaces": [
-        "shared",
-        "server",
-        "app"
-    ],
-    "scripts": {
-        "clean": "lerna clean --yes && yarn",
-        "build": "lerna run build"
-    },
-    "devDependencies": {
-        "lerna": "^6.3.0"
-    }
+  "name": "louvorja",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "workspaces": [
+    "shared",
+    "server",
+    "app"
+  ],
+  "scripts": {
+    "clean": "lerna clean --yes && yarn",
+    "build": "lerna run build",
+    "app": "yarn --cwd app",
+    "server": "yarn --cwd server",
+    "electron": "yarn --cwd electron",
+    "dev": "concurrently --kill-others \"yarn app dev\" \"yarn server dev\"",
+    "depcheck": "yarn workspaces --all run depcheck"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "depcheck": "^1.4.3",
+    "lerna": "^6.3.0"
+  }
 }

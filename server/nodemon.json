@@ -4,5 +4,5 @@
     ],
     "ext": ".mjs,.js",
     "ignore": [],
-    "exec": "yarn node ./src/index.mjs"
+    "exec": "yarn node ./src/index.js"
 }

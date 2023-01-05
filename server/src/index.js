@@ -1,7 +1,7 @@
 import Koa from "koa";
 import Router from "@koa/router";
 
-import Import from "./imports";
+import Import from "./imports.js";
 
 const app = new Koa();
 
