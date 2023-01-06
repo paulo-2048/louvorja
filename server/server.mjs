@@ -1,7 +1,9 @@
 import Koa from "koa";
 import Router from "@koa/router";
 
-import Config from "@louvorja/shared";
+import { Config } from "@louvorja/shared";
+
+console.log(Config)
 
 const config = Config.load();
 

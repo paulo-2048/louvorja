@@ -9,7 +9,7 @@ const router = new Router({
 });
 
 router.get("/liturgia.ja", async (ctx, next) => {
-  ctx.body = Liturgy.liturgyFromIni(path.join(APPDATA, "Louvor JA", "liturgia.ja"));
+  ctx.body = Liturgy.fromIni(path.join(APPDATA, "Louvor JA", "liturgia.ja"));
 });
 
 export default router;

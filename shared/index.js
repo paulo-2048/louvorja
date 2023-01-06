@@ -1,7 +1,5 @@
-import * as app from "./_app";
-import * as platform from "./_platform";
-import * as strings from "./_strings";
-import * as theme from "./_theme";
-import Config from "./_config";
-
-export default { app, platform, strings, theme, Config };
+export * as app from "./_app.js";
+export * as platform from "./_platform.js";
+export * as strings from "./_strings.js";
+export * as theme from "./_theme.js";
+export * from "./_config.js";

@@ -3,7 +3,7 @@ import ini from "ini";
 /**
  * Liturgy model.
  */
-export default class Liturgy {
+export class Liturgy {
   /**
    * @type {number}
    */
@@ -18,7 +18,7 @@ export default class Liturgy {
    * @param {string} iniStr
    * @returns {Liturgy[]} ????
    */
-  static liturgyFromIni(iniStr) {
+  static fromIni(iniStr) {
     const config = ini.parse(iniStr);
 
     const geral = config.Geral;
@@ -42,3 +42,5 @@ export default class Liturgy {
     return json;
   }
 }
+
+export default Liturgy;

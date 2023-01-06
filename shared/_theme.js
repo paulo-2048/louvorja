@@ -1,4 +1,4 @@
-import { ThemeDefinition } from "./_vuetify";
+import { ThemeDefinition } from "./_vuetify.js";
 
 /**
  * Represents dark theme.

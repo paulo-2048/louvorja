@@ -16,7 +16,7 @@ export class ServerConfig {
 /**
  * Holds all aplication configuration.
  */
-export default class Config {
+export class Config {
   /**
    * @type {ServerConfig}
    */
@@ -33,3 +33,5 @@ export default class Config {
     return new Config();
   }
 }
+
+export default Config;
