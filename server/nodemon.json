@@ -1,8 +1,8 @@
 {
     "watch": [
-        "src"
+        "server.mjs", "routes"
     ],
     "ext": ".mjs,.js",
     "ignore": [],
-    "exec": "yarn node ./src/index.js"
+    "exec": "yarn node server.mjs"
 }
