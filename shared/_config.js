@@ -6,7 +6,17 @@ export class ServerConfig {
    * Server port. Use 0 (zero) for random.
    * @type {number}.
    */
-  port;
+  port = 5174;
+  /**
+   * Address to bind to. "0.0.0.0" to all interfaces, "127.0.0.1" to localhost.
+   * @type {string}
+   */
+  bind = "0.0.0.0";
+  /**
+   * Enable server debug/logger.
+   * @type {boolean}
+   */
+  debug = true;
 
   constructor(port) {
     this.port = port;

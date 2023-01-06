@@ -1,3 +1,4 @@
+import { basename, MetaModule } from "./_modules.js";
 import { ThemeDefinition } from "./_vuetify.js";
 
 /**
@@ -24,21 +25,13 @@ export class NamedThemeDefinition extends ThemeDefinition {
   name;
 }
 
-export class MetaModule {
-  /**
-   * Module URL.
-   * @type {string}
-   */
-  url;
-}
-
 /**
  *
  * @param {MetaModule} meta
  * @returns {string} Module calculated ID (file name without extension)
  */
 export function id(meta) {
-  return meta.url.split("/").slice(-1)[0].split(".")[0];
+  return basename(meta);
 }
 /**
  *

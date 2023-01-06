@@ -1,24 +1,49 @@
-import Koa from "koa";
-import Router from "@koa/router";
+import fs from "node:fs";
+import path from "node:path";
+import url from "node:url";
 
 import { Config } from "@louvorja/shared";
-
-console.log(Config)
-
 const config = Config.load();
 
-import Import from "./routes/imports.js";
-
-const app = new Koa();
-
-app.use(Import.routes()).use(new Router().allowedMethods());
+import Fastify from "fastify";
+import { modules } from "@louvorja/shared";
+const fastify = Fastify({
+  logger: config.server.debug,
+});
 
 function getPort(server) {
-  return server.address().port;
+  return server.server.address().port;
 }
 
-const server = app.listen(config.server.port || 0);
-const port = getPort(server);
-console.log(`Server running on http://localhost:${port}`);
+// Declare ping route
+fastify.get("/ping", function (request, reply) {
+  reply.send("pong");
+});
 
-export { port };
+/***************************
+ * ROUTES
+ */
+fastify.addHook("onRoute", (route) => {
+  console.log("Route", route);
+});
+
+const routesDirectory = path.join(modules.dirname(import.meta), "routes");
+console.log("Searching routes on ${routesDirectory}");
+const routeModules = fs.readdirSync(routesDirectory);
+for (const file of routeModules) {
+  console.log("Installing routes from ${file}");
+  const routes = await import(
+    url.pathToFileURL(path.join(routesDirectory, file))
+  );
+  routes.install(fastify);
+}
+
+// Run the server!
+fastify.listen({ port: config.server.port || 0 }, function (err, address) {
+  if (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+  const port = getPort(fastify);
+  console.log(`Server running on http://localhost:${port}`);
+});

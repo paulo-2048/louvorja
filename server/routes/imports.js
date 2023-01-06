@@ -1,15 +1,20 @@
-import Router from "@koa/router";
 import path from "node:path";
 
 import Liturgy from "@louvorja/shared/specs/liturgy.js";
 import { APPDATA } from "@louvorja/shared/_platform.js";
 
-const router = new Router({
-  prefix: "/import",
-});
+/**
+ *
+ * @param {string} path
+ * @returns {string} Prefixed route path
+ */
+function prefixed(path) {
+  path = path.startsWith("/") ? path : "/${path}";
+  return `/import${path}`;
+}
 
-router.get("/liturgia.ja", async (ctx, next) => {
-  ctx.body = Liturgy.fromIni(path.join(APPDATA, "Louvor JA", "liturgia.ja"));
-});
-
-export default router;
+export function install(router) {
+  router.get(prefixed("/liturgia.ja"), async (request, reply) => {
+    reply.send(Liturgy.fromIni(path.join(APPDATA, "Louvor JA", "liturgia.ja")));
+  });
+}
