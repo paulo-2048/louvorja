@@ -4,7 +4,8 @@
 
 - Vue JS 3 (using composition API preferably) with vite
 - Vuetify 3 (next)
-- Lodash for utilities
+- Fastify (server)
+- Electron (desktop app)
 
 
 ## Development environment
@@ -42,8 +43,9 @@ yarn dev
 
 Now you can see the running project on your browser:
 
-```sh
-http://localhost:5173/
+```
+http://localhost:5173/ (App)
+http://localhost:5174/ (Server)
 ```
 
 
@@ -62,3 +64,19 @@ Just be carefull with:
   name: name(import.meta)
   ```
 - For available colors and options for theme customization go to Vurtify theme instructions: [https://next.vuetifyjs.com/en/features/theme/]()
+
+## Routes
+
+Add a new file to `server/routes` directory, as follow:
+
+```js
+export function install(router, applyPrefix) {
+  router.get(applyPrefix("/ping"), function (request, reply) {
+    reply.send("pong");
+  });
+}
+```
+
+Change or add routes as you see fit (https://www.fastify.io/docs/latest/Reference/Routes/).
+
+All routes will be prefixed with the module basename (filename without extension) to avoid colision.
