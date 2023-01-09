@@ -18,7 +18,7 @@ server.addHook("onRoute", (route) => {
   console.log(`Route ${route.method} ${route.routePath}`);
 });
 
-const routesDirectory = path.join(modules.dirname(import.meta), "routes");
+const routesDirectory = path.join(modules.parent(import.meta), "routes");
 console.log(`Searching routes on ${routesDirectory}`);
 const routeModules = fs.readdirSync(routesDirectory);
 for (const file of routeModules) {
@@ -28,7 +28,7 @@ for (const file of routeModules) {
   const applyPrefix = prefix.prefixRoute(
     modules.basename({ url: moduleUrl.toString() })
   );
-  routes.install(server, applyPrefix);
+  await routes.install(server, applyPrefix);
 }
 
 /**

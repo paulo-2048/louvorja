@@ -1,5 +1,5 @@
 const { app, BrowserWindow } = require("electron");
-const path = require("path");
+
 const {
   default: installExtension,
   VUEJS3_DEVTOOLS,
@@ -15,9 +15,11 @@ function errorHandler(error) {
 }
 
 function installVueJS3DevTools() {
-  installExtension(VUEJS3_DEVTOOLS)
-    .then((name) => console.log(`Added Extension:  ${name}`))
-    .catch((err) => console.log("Error adding extension: ", err));
+  if (app.commandLine.hasSwitch("install-dev-tools")) {
+    installExtension(VUEJS3_DEVTOOLS)
+      .then((name) => console.log(`Added Extension:  ${name}`))
+      .catch((err) => console.log("Error adding extension: ", err));
+  }
 }
 
 const IN = false;
@@ -108,6 +110,27 @@ function mainWindow(url) {
   return window;
 }
 
+/**
+ * @returns {string} Server url.
+ */
+async function startServer() {
+  const serverUrl = app.commandLine.getSwitchValue("server-url");
+  if (serverUrl !== "") {
+    return serverUrl;
+  }
+  const server = await import("@louvorja/server");
+  const addresses = [...(await server.start())];
+  console.log(addresses);
+  const address = addresses
+    .filter((a) => a.family === "IPv4")
+    .filter((a) => {
+      console.log("ADDR", a.address, a);
+      return ["localhost", "127.0.0.1", "0.0.0.0"].includes(a.address);
+    })[0];
+  address.address = address.address.replace("0.0.0.0", "127.0.0.1");
+  return `http://${address.address}:${address.port}/`;
+}
+
 app
   .whenReady()
   .then(async () => {
@@ -117,17 +140,10 @@ app
     splash.once("ready-to-show", async () => {
       splash.show();
       fadeWindow(window, IN);
-      const server = await import("@louvorja/server");
-      const addresses = [...(await server.start())];
-      console.log(addresses);
-      const address = addresses
-        .filter((a) => a.family === "IPv4")
-        .filter((a) =>
-          ["localhost", "127.0.0.1", "0.0.0.0"].includes(a.address)
-        )[0];
-      address.address = address.address.replace("0.0.0.0", "127.0.0.1");
-      const windowUrl = `http://${address.address}:${address.port}/server/version`;
-      const main = mainWindow(windowUrl);
+
+      const url = await startServer();
+      console.log("SERVER URL", url);
+      const main = mainWindow(url);
 
       main.once("ready-to-show", () => {
         main.show();

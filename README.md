@@ -70,7 +70,7 @@ Just be carefull with:
 Add a new file to `server/routes` directory, as follow:
 
 ```js
-export function install(router, applyPrefix) {
+export async function install(router, applyPrefix) {
   router.get(applyPrefix("/ping"), function (request, reply) {
     reply.send("pong");
   });

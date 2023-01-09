@@ -5,7 +5,9 @@
     "description": "LouvorJA",
     "private": true,
     "scripts": {
-        "dev": "electron --unhandled-rejections=strict ./src/main.cjs"
+        "dev": "yarn electron --server-url=http://localhost:5173",
+        "preview": "yarn electron",
+        "electron": "electron --unhandled-rejections=strict ./src/main.cjs"
     },
     "main": "src/main.cjs",
     "dependencies": {},

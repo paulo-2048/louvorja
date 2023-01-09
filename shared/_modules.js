@@ -18,10 +18,20 @@ export class Module {
 /**
  *
  * @param {MetaModule} meta.
- * @returns {string} Module directory path.
+ * @returns {string} Module directory (parent) path.
+ */
+export function parent(meta) {
+  return url.fileURLToPath(meta.url.substring(0, meta.url.lastIndexOf("/")));
+}
+
+/**
+ *
+ * @param {MetaModule} meta.
+ * @returns {string} Module directory name.
  */
 export function dirname(meta) {
-  return url.fileURLToPath(meta.url.substring(0, meta.url.lastIndexOf("/")));
+  const parentPath = parent(meta);
+  return parentPath.substring(parentPath.indexOf("/") + 1);
 }
 
 /**

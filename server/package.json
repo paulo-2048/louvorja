@@ -9,6 +9,8 @@
         "start": "node server.mjs"
     },
     "dependencies": {
+        "@fastify/http-proxy": "^8.4.0",
+        "@fastify/static": "^6.6.0",
         "@louvorja/shared": "link:./shared",
         "fastify": "^4.11.0",
         "sqlite3": "^5.1.4"
