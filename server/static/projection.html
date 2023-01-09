@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-size: 10vh;
+      }
+
+      .wrapper {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        display: flex;
+        align-items: stretch;
+        align-self: stretch;
+        align-content: stretch;
+      }
+
+      #top {
+        text-align: center;
+        flex-direction: column;
+      }
+
+      #bottom {
+        text-align: center;
+        flex-direction: column-reverse;
+      }
+
+      #left {
+        text-align: left;
+      }
+
+      #right {
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="video" class="wrapper">VIDEO</div>
+    <div id="top" class="wrapper">TOP</div>
+    <div id="right" class="wrapper">RIGHT</div>
+    <div id="bottom" class="wrapper">BOTTOM</div>
+    <div id="left" class="wrapper">LEFT</div>
+    <div id="main" class="wrapper">MAIN</div>
+  </body>
+</html>

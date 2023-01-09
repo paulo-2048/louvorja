@@ -1,0 +1,1 @@
+ignores: ["fastify", "sqlite3"]

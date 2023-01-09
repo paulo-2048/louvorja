@@ -11,10 +11,6 @@ const server = Fastify({
   logger: config.server.debug,
 });
 
-function getPort(server) {
-  return server.server.address().port;
-}
-
 /***************************
  * ROUTES
  */
@@ -29,16 +25,31 @@ for (const file of routeModules) {
   console.log(`Installing routes from ${file}`);
   const moduleUrl = url.pathToFileURL(path.join(routesDirectory, file));
   const routes = await import(moduleUrl);
-  const applyPrefix = prefix.prefixRoute(modules.basename({ url: moduleUrl.toString() }));
+  const applyPrefix = prefix.prefixRoute(
+    modules.basename({ url: moduleUrl.toString() })
+  );
   routes.install(server, applyPrefix);
 }
 
-// Run the server!
-server.listen({ port: config.server.port || 0 }, function (err, address) {
-  if (err) {
-    server.log.error(err);
-    process.exit(1);
-  }
-  const port = getPort(server);
-  console.log(`Server running on http://localhost:${port}`);
-});
+/**
+ *
+ * @returns {{address: string, family: string, port: number}[]}
+ */
+export async function start() {
+  await server
+    .listen({
+      port: config.server.port || 0,
+      host: config.server.host || "0.0.0.0",
+    })
+    .then((address) => {
+      console.log(`Server running on ${address}`);
+    })
+    .catch((err) => {
+      server.log.error(err);
+      process.exit(1);
+    });
+  return server.addresses();
+}
+if (process.argv[1].endsWith(modules.filename(import.meta))) {
+  start();
+}

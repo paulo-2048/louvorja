@@ -9,6 +9,7 @@
         "start": "node server.mjs"
     },
     "dependencies": {
+        "@louvorja/shared": "link:./shared",
         "fastify": "^4.11.0",
         "sqlite3": "^5.1.4"
     },

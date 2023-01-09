@@ -5,11 +5,10 @@
     "description": "LouvorJA",
     "private": true,
     "scripts": {
-        "dev": "electron ./src"
+        "dev": "electron --unhandled-rejections=strict ./src/main.cjs"
     },
     "main": "src/main.cjs",
-    "dependencies": {
-    },
+    "dependencies": {},
     "devDependencies": {
         "electron": "^22.0.0",
         "electron-devtools-installer": "^3.2.0",

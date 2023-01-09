@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Louvor JA</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        background: transparent;
+        overflow: hidden;
+      }
+      .loading {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        position: absolute;
+        z-index: 9999;
+      }
+      .loading .icon,
+      .loading .spin {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: absolute;
+      }
+      .loading .icon img {
+        width: 80vh;
+        height: 80vh;
+      }
+      .loading .spin div {
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 0.75s linear infinite;
+        position: fixed;
+        border-radius: 50%;
+        border: 2vh solid transparent;
+        border-top: 2vh solid #f8c800;
+        border-bottom: 2vh solid #0097d7;
+        z-index: 1;
+        width: 90vh;
+        height: 90vh;
+      }
+      @keyframes spin {
+        to {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+      @-webkit-keyframes spin {
+        to {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
+    </noscript>
+    <div id="preload" class="loading">
+      <div class="icon">
+        <img src="loading.svg" />
+      </div>
+      <div class="spin">
+        <div></div>
+      </div>
+    </div>
+  </body>
+</html>

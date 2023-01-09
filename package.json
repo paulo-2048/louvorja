@@ -6,7 +6,8 @@
   "workspaces": [
     "shared",
     "server",
-    "app"
+    "app",
+    "electron"
   ],
   "scripts": {
     "clean": "lerna clean --yes && yarn",
@@ -14,7 +15,7 @@
     "app": "yarn --cwd app",
     "server": "yarn --cwd server",
     "electron": "yarn --cwd electron",
-    "dev": "concurrently --kill-others \"yarn app dev\" \"yarn server dev\"",
+    "dev": "concurrently --kill-others \"yarn app dev\" \"yarn server dev\" \"yarn electron dev\"",
     "depcheck": "yarn workspaces --all run depcheck"
   },
   "devDependencies": {
