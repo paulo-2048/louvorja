@@ -1,4 +1,12 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, Menu, Tray } = require("electron");
+const path = require("node:path");
+
+// ASSURES SINGLE INSTANCE
+const gotTheLock = app.requestSingleInstanceLock(process.argv);
+if (!gotTheLock) {
+  app.quit();
+}
+///
 
 const {
   default: installExtension,
@@ -11,7 +19,7 @@ const {
  */
 function errorHandler(error) {
   console.log(error);
-  process.exit(1);
+  app.quit();
 }
 
 function installVueJS3DevTools() {
@@ -64,11 +72,12 @@ function fadeWindow(window, out, doneCallback = null) {
  *
  * @returns {BrowserWindow}
  */
-function splashWindow() {
+function splashWindow(parent) {
   window = new BrowserWindow({
     width: 300,
     height: 300,
     transparent: true,
+    alwaysOnTop: true,
     autoHideMenuBar: true,
     useContentSize: true,
     resizable: true,
@@ -107,6 +116,7 @@ function mainWindow(url) {
   window.setOpacity(0);
   window.maximize();
   window.loadURL(url);
+
   return window;
 }
 
@@ -131,11 +141,68 @@ async function startServer() {
   return `http://${address.address}:${address.port}/`;
 }
 
+/**
+ *
+ * @param mainWindow {{splash: BrowserWindow, control: BrowserWindow, projection: BrowserWindow}}
+ * @param projectorWindow {BrowserWindow}
+ * @returns {Tray}
+ */
+function createTray(windows) {
+  let tray = new Tray(path.join(__dirname, "./louvor-ja.png"));
+
+  /**
+   *
+   * @param window {BrowserWindow}
+   */
+  function toogleWindowVisibility(window) {
+    if (window.isVisible()) {
+      window.minimize();
+      window.hide();
+    } else {
+      window.restore();
+      window.show();
+    }
+  }
+
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: "Show/Hide Control Window",
+      type: "normal",
+      click: (menuItem, browserWindow, event) => {
+        toogleWindowVisibility(windows.control);
+      },
+    },
+    {
+      label: "Quit",
+      type: "normal",
+      click: (menuItem, browserWindow, event) => {
+        app.quit();
+      },
+    },
+  ]);
+  //FIXME app name
+  tray.setToolTip("This is my application.");
+  tray.setContextMenu(contextMenu);
+
+  tray.on("click", function (e) {
+    tray.popUpContextMenu();
+  });
+  return tray;
+}
+
+const windows = {
+  splash: null,
+  control: null,
+  projection: null,
+};
+
 app
   .whenReady()
   .then(async () => {
     installVueJS3DevTools();
+    let tray = createTray(windows);
     const splash = splashWindow();
+    windows.splash = splash;
 
     splash.once("ready-to-show", async () => {
       splash.show();
@@ -143,15 +210,16 @@ app
 
       const url = await startServer();
       console.log("SERVER URL", url);
-      const main = mainWindow(url);
+      const control = mainWindow(url);
+      windows.control = control;
 
-      main.once("ready-to-show", () => {
-        main.show();
+      control.once("ready-to-show", () => {
+        control.show();
         splash.focus();
-        fadeWindow(main, IN, () => {
+        fadeWindow(control, IN, () => {
           fadeWindow(splash, OUT, () => {
             splash.destroy();
-            main.focus();
+            control.focus();
           });
         });
       });
@@ -166,3 +234,22 @@ app.on("window-all-closed", () => {
     app.quit();
   }
 });
+
+app.on(
+  "second-instance",
+  (event, commandLine, workingDirectory, additionalData) => {
+    // Print out data received from the second instance.
+    console.log(additionalData);
+
+    // Someone tried to run a second instance, we should focus our window.
+    if (windows.control) {
+      if (!windows.control.isVisible()) {
+        windows.control.show();
+      }
+      if (windows.control.isMinimized()) {
+        windows.control.restore();
+      }
+      windows.control.focus();
+    }
+  }
+);

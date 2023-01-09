@@ -1,6 +1,6 @@
 <template>
   <v-app full-height>
-    <v-layout fill-height>
+    <v-layout full-height>
       <v-system-bar></v-system-bar>
 
       <v-app-bar title="Louvor JA">
@@ -27,23 +27,44 @@
           </v-menu>
         </template>
       </v-app-bar>
-      <v-navigation-drawer> </v-navigation-drawer>
-      <v-main>
-        <v-container>
-          <json-viewer :value="store"></json-viewer>
-          <router-view v-slot="{ Component, route }">
-            <transition name="fade">
-              <keep-alive>
-                <component :is="Component" :key="route.path" />
-              </keep-alive>
-            </transition>
-          </router-view>
-          Content area
+      <v-navigation-drawer location="right">
+        <div
+          style="
+            background: yellow;
+            width: 100%;
+            color: black;
+            aspect-ratio: 16/9;
+          "
+        >
+          PREVIEW
+        </div>
+      </v-navigation-drawer>
+      <v-main style="height: 100vh">
+        <v-container fluid class="overflow-y-auto" style="height: 100%">
+          <v-row>
+            <v-col>
+              <json-viewer :value="store"></json-viewer>
+              <json-viewer :value="store"></json-viewer>
+
+              <json-viewer :value="store"></json-viewer>
+              <json-viewer :value="store"></json-viewer>
+            </v-col>
+            <v-col>
+              <router-view v-slot="{ Component, route }">
+                <transition name="fade">
+                  <keep-alive>
+                    <component :is="Component" :key="route.path" />
+                  </keep-alive>
+                </transition>
+              </router-view>
+            </v-col>
+          </v-row>
         </v-container>
+
+        <v-bottom-navigation></v-bottom-navigation>
       </v-main>
 
-      <v-footer></v-footer>
-      <v-bottom-navigation></v-bottom-navigation>
+      <v-footer app> FOOTER</v-footer>
     </v-layout>
   </v-app>
 </template>
@@ -52,7 +73,11 @@
 import { main as mainStore } from "@/store/index";
 import { useTheme } from "vuetify";
 import { capitalize } from "@louvorja/shared/_strings";
-import { defaultTheme, isDarkMode, NamedThemeDefinition } from "@louvorja/shared/_theme";
+import {
+  defaultTheme,
+  isDarkMode,
+  NamedThemeDefinition,
+} from "@louvorja/shared/_theme";
 import { computed, ref, watch } from "vue";
 
 const store = mainStore();
@@ -61,7 +86,7 @@ const theme = useTheme();
 const themes = Object.entries(theme.themes.value).map((t) => {
   return {
     id: t[0],
-    name: (t[1]).name || capitalize(t[0]),
+    name: t[1].name || capitalize(t[0]),
     dark: t[1].dark,
   };
 });
