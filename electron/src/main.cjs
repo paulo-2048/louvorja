@@ -1,262 +1,95 @@
-const { app, BrowserWindow, Menu, Tray } = require("electron");
-const path = require("node:path");
+const { app } = require("electron");
+
+let logger = null;
 
 import("@louvorja/shared")
-  .then(({ logging }) => logging.createLogger(logging.STDOUT))
-  .then((logger) => {
+  .then(async (shared) => {
+    const { logging } = shared;
+    logger = logging.createLogger(logging.STDOUT);
     logger.info("Logger created");
-    // ASSURES SINGLE INSTANCE
-    const gotTheLock = app.requestSingleInstanceLock(process.argv);
-    if (!gotTheLock) {
-      app.quit();
-    }
-    ///
 
+    const { createTray } = await import("./inc/tray.mjs");
     const {
-      default: installExtension,
-      VUEJS3_DEVTOOLS,
-    } = require("electron-devtools-installer");
-    const { promisify } = require("node:util");
+      createWindow,
+      closeSplashAndShowControl,
+      fadeWindow,
+      IN,
+      Windows,
+      CONTROL,
+      SPLASH,
+      PROJECTION,
+    } = await import("./inc/windows.mjs");
 
-    /**
-     *
-     * @param error {object}
-     */
-    function errorHandler(error) {
-      console.log(error);
-      app.quit();
-    }
+    const windows = new Windows();
 
-    function installVueJS3DevTools() {
-      if (app.commandLine.hasSwitch("install-dev-tools")) {
-        installExtension(VUEJS3_DEVTOOLS)
-          .then((name) => console.log(`Added Extension:  ${name}`))
-          .catch((err) => console.log("Error adding extension: ", err));
-      }
-    }
+    let tray = createTray(windows);
 
-    const IN = false;
-    const OUT = true;
-
-    /**
-     *
-     * @param window {BrowserWindow} Window to fade.
-     * @param out {boolean} True for fade out, false for fade in.
-     * @param doneCallback {function} Callback to be called when fade is done.
-     * @returns {void}
-     */
-    function fadeWindow(window, out, doneCallback = null) {
-      let step = 0.05 * (out ? -1 : 1);
-      const duration = 1 * 0.95; // 0.95 is to compensate windo opacity change duration
-      let opacity = window.getOpacity();
-
-      let intervalHandler;
-      const startTime = new Date().getTime();
-      function updateOpacity() {
-        opacity += step;
-        window.setOpacity(opacity);
-        if (opacity >= 1 || opacity <= 0) {
-          console.log(
-            `Fade effective duration ${new Date().getTime() - startTime}`
-          );
-          clearInterval(intervalHandler);
-          setTimeout(() => {
-            doneCallback && doneCallback();
-          }, interval);
-        }
-      }
-
-      const totalSteps = 1 / Math.abs(step);
-      const stepsBySeconds = totalSteps / duration;
-      const interval = 1000 / stepsBySeconds;
-      intervalHandler = setInterval(updateOpacity, interval);
-      return intervalHandler;
-    }
-
-    /**
-     *
-     * @returns {BrowserWindow}
-     */
-    function splashWindow(parent) {
-      window = new BrowserWindow({
-        width: 300,
-        height: 300,
-        transparent: true,
-        alwaysOnTop: true,
-        autoHideMenuBar: true,
-        useContentSize: true,
-        resizable: true,
-        frame: false,
-        show: false,
-        transparent: true,
-        focusable: true,
-        closable: true,
-        minimizable: false,
-        maximizable: false,
-        resizable: false,
-        fullscreenable: false,
-      });
-      window.setOpacity(0);
-      window.loadFile("loading.html");
-      return window;
-    }
-
-    /**
-     *
-     * @param url {string}
-     * @returns {BrowserWindow}
-     */
-    function mainWindow(url) {
-      window = new BrowserWindow({
-        width: 800,
-        height: 600,
-        show: false,
-        autoHideMenuBar: true,
-        useContentSize: true,
-        resizable: true,
-        // webPreferences: {
-        //   preload: path.join(__dirname, "./preload.js"),
-        // },
-      });
-      window.setOpacity(0);
-      window.maximize();
-      window.loadURL(url);
-
-      return window;
-    }
-
-    /**
-     * @returns {string} Server url.
-     */
-    async function startServer() {
-      const serverUrl = app.commandLine.getSwitchValue("server-url");
-      if (serverUrl !== "") {
-        return serverUrl;
-      }
-      const server = await import("@louvorja/server");
-      const addresses = [...(await server.start())];
-      console.log(addresses);
-      const address = addresses
-        .filter((a) => a.family === "IPv4")
-        .filter((a) => {
-          console.log("ADDR", a.address, a);
-          return ["localhost", "127.0.0.1", "0.0.0.0"].includes(a.address);
-        })[0];
-      address.address = address.address.replace("0.0.0.0", "127.0.0.1");
-      return `http://${address.address}:${address.port}/`;
-    }
-
-    /**
-     *
-     * @param mainWindow {{splash: BrowserWindow, control: BrowserWindow, projection: BrowserWindow}}
-     * @param projectorWindow {BrowserWindow}
-     * @returns {Tray}
-     */
-    function createTray(windows) {
-      let tray = new Tray(path.join(__dirname, "./louvor-ja.png"));
-
-      /**
-       *
-       * @param window {BrowserWindow}
-       */
-      function toogleWindowVisibility(window) {
-        if (window.isVisible()) {
-          window.minimize();
-          window.hide();
-        } else {
-          window.restore();
-          window.show();
-        }
-      }
-
-      const contextMenu = Menu.buildFromTemplate([
-        {
-          label: "Show/Hide Control Window",
-          type: "normal",
-          click: (menuItem, browserWindow, event) => {
-            toogleWindowVisibility(windows.control);
-          },
-        },
-        {
-          label: "Quit",
-          type: "normal",
-          click: (menuItem, browserWindow, event) => {
-            app.quit();
-          },
-        },
-      ]);
-      //FIXME app name
-      tray.setToolTip("This is my application.");
-      tray.setContextMenu(contextMenu);
-
-      tray.on("click", function (e) {
-        tray.popUpContextMenu();
-      });
-      return tray;
-    }
-
-    const windows = {
-      splash: null,
-      control: null,
-      projection: null,
-    };
-
-    app
-      .whenReady()
-      .then(async () => {
-        logger.info("App ready!");
-        installVueJS3DevTools();
-        let tray = createTray(windows);
-        const splash = splashWindow();
-        windows.splash = splash;
-
-        splash.once("ready-to-show", async () => {
-          splash.show();
-          fadeWindow(window, IN);
-
-          const url = await startServer();
-          console.log("SERVER URL", url);
-          const control = mainWindow(url);
-          windows.control = control;
-
-          control.once("ready-to-show", () => {
-            control.show();
-            splash.focus();
-            fadeWindow(control, IN, () => {
-              fadeWindow(splash, OUT, () => {
-                splash.destroy();
-                control.focus();
-              });
-            });
-          });
-        });
-      })
-      .catch(errorHandler);
-
-    // FIXME quit when main window closed
-    // FIXME use try icon, so single monitor can be projection
-    app.on("window-all-closed", () => {
-      if (process.platform !== "darwin") {
-        app.quit();
-      }
+    logger.info(`SPLASH: ${SPLASH}`);
+    windows.splash = createWindow(SPLASH, {
+      opacity: 1,
+      file: "./splash.html",
     });
+    const splash = windows.splash;
 
-    app.on(
-      "second-instance",
-      (event, commandLine, workingDirectory, additionalData) => {
-        // Print out data received from the second instance.
-        console.log(additionalData);
+    splash.once("ready-to-show", async () => {
+      splash.show();
+      fadeWindow(splash, IN);
 
-        // Someone tried to run a second instance, we should focus our window.
-        if (windows.control) {
-          if (!windows.control.isVisible()) {
-            windows.control.show();
-          }
-          if (windows.control.isMinimized()) {
-            windows.control.restore();
-          }
-          windows.control.focus();
-        }
-      }
-    );
+      const devtools = await import("./inc/devtools.mjs");
+      devtools.installVueJS3DevTools(app);
+
+      const system = await import("./inc/system.mjs");
+      system.assureSingleInstance();
+
+      const devMode = app.commandLine.hasSwitch("dev-mode");
+
+      let serverUrl = devMode
+        ? "http://localhost:5174"
+        : await import("./inc/server.mjs");
+
+      let controlUrl = devMode
+        ? `${serverUrl}/control`
+        : "http://localhost:5175";
+
+      let projectionUrl = devMode
+        ? `${serverUrl}/projection`
+        : "http://localhost:5176";
+
+      logger.info(`Control URL  ${controlUrl}`);
+      logger.info(`CONTROL: ${CONTROL}`);
+      windows.control = createWindow(CONTROL, {
+        url: controlUrl,
+        maximize: true,
+      });
+
+      const controlReadey = new Promise((resolve, reject) => {
+        windows.control.once("ready-to-show", () => {
+          logger.info("Control window ready!");
+          resolve(true);
+        });
+      });
+
+      logger.info(`Projection URL ${projectionUrl}`);
+      logger.info(`PROJECTION: ${PROJECTION}`);
+      windows.projection = createWindow(PROJECTION, {
+        url: projectionUrl,
+        maximize: true,
+        opacity: 1,
+      });
+
+      const projectionReady = new Promise((resolve, reject) => {
+        windows.projection.once("ready-to-show", () => {
+          logger.info("Projection window ready!");
+          resolve(true);
+        });
+      });
+
+      Promise.all([controlReadey, projectionReady])
+        .then(() => closeSplashAndShowControl(windows))
+        .catch((error) => logger.error(error));
+    });
+  })
+  .catch((error) => {
+    (logger || console).error(error);
+    app.quit();
   });

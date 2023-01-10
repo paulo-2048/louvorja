@@ -44,7 +44,7 @@ yarn dev
 Now you can see the running project on your browser:
 
 ```
-http://localhost:5173/ (App)
+http://localhost:5175/ (App)
 http://localhost:5174/ (Server)
 ```
 

@@ -1,4 +1,21 @@
 /**
+ * Holds app configuration.
+ */
+export class AppConfig {
+  /**
+   * App name.
+   * @type {string}
+   */
+  name = "Louvor JA";
+
+  /**
+   * App description.
+   * @type {string}
+   */
+  description = "Coletânea e Utilidades Louvor JA";
+}
+
+/**
  * Holds server configuration.
  */
 export class ServerConfig {
@@ -28,11 +45,16 @@ export class ServerConfig {
  */
 export class Config {
   /**
+   * @type {AppConfig}
+   */
+  app;
+  /**
    * @type {ServerConfig}
    */
   server;
 
   constructor() {
+    this.app = new AppConfig();
     this.server = new ServerConfig(5174);
   }
 
@@ -44,4 +66,18 @@ export class Config {
   }
 }
 
-export default Config;
+/**
+ * @type {Config}
+ */
+let config = null;
+
+/**
+ * Load or return already loaded {@link Config}.
+ * @returns {Config}
+ */
+export const CONFIG = (function () {
+  if (config === null) {
+    config = Config.load();
+  }
+  return config;
+})();

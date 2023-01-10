@@ -1,4 +1,7 @@
-export * as App from "./_app.js";
+export function toString() {
+  return "module @louvorja/shared";
+}
+
 export * as logging from "./_logging.js";
 export * as modules from "./_modules.js";
 export * from "./_platform.js";

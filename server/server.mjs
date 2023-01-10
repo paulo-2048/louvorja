@@ -50,6 +50,7 @@ export async function start() {
     });
   return server.addresses();
 }
+
 if (process.argv[1].endsWith(modules.filename(import.meta))) {
   start();
 }
