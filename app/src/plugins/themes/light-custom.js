@@ -1,4 +1,5 @@
-import { id, name, NamedThemeDefinition } from "@louvorja/shared/_theme";
+import { theme } from "@louvorja/shared";
+const { id, name, NamedThemeDefinition } = theme;
 
 /**
  * @type {NamedThemeDefinition}

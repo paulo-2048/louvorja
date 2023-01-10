@@ -64,7 +64,7 @@
         <v-bottom-navigation></v-bottom-navigation>
       </v-main>
 
-      <v-footer app> FOOTER</v-footer>
+      <v-footer app> LITURGIA | UTILITARIOS (mobile only | use tabs instead of 2 cols)</v-footer>
     </v-layout>
   </v-app>
 </template>
@@ -72,13 +72,11 @@
 <script setup>
 import { main as mainStore } from "@/store/index";
 import { useTheme } from "vuetify";
-import { capitalize } from "@louvorja/shared/_strings";
-import {
-  defaultTheme,
-  isDarkMode,
-  NamedThemeDefinition,
-} from "@louvorja/shared/_theme";
+import { strings } from "@louvorja/shared";
+import { theme as themeMod} from "@louvorja/shared";
 import { computed, ref, watch } from "vue";
+
+const { defaultTheme, isDarkMode, NamedThemeDefinition } = themeMod;
 
 const store = mainStore();
 const theme = useTheme();
@@ -86,7 +84,7 @@ const theme = useTheme();
 const themes = Object.entries(theme.themes.value).map((t) => {
   return {
     id: t[0],
-    name: t[1].name || capitalize(t[0]),
+    name: t[1].name || strings.capitalize(t[0]),
     dark: t[1].dark,
   };
 });

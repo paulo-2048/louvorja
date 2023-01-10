@@ -1,12 +1,25 @@
+if (typeof process === "undefined") {
+  const process = {
+    env: {
+      HOME: "",
+      APPDATA: "",
+    },
+    platform: "",
+    versions: {},
+  };
+}
+
 /**
  * Local APPDATA folder (platform dependent).
  * @type {string}
  */
 export const APPDATA =
-  process.env.APPDATA ||
-  (process.platform == "darwin"
-    ? process.env.HOME + "/Library/Preferences"
-    : process.env.HOME + "/.local/share");
+  typeof process !== "undefined"
+    ? process.env.APPDATA ||
+      (process.platform == "darwin"
+        ? process.env.HOME + "/Library/Preferences"
+        : process.env.HOME + "/.local/share")
+    : null;
 
 /**
  * @see https://stackoverflow.com/questions/61725325/detect-an-electron-instance-via-javascript

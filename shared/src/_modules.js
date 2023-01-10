@@ -17,11 +17,20 @@ export class Module {
 
 /**
  *
+ * @param {MetaModule|string} meta.
+ * @returns {string} Module path.
+ */
+export function path(meta) {
+  return url.fileURLToPath(meta.url || meta);
+}
+
+/**
+ *
  * @param {MetaModule} meta.
  * @returns {string} Module directory (parent) path.
  */
 export function parent(meta) {
-  return url.fileURLToPath(meta.url.substring(0, meta.url.lastIndexOf("/")));
+  return path(meta.url.split("/").slice(0, -1).join("/"));
 }
 
 /**
@@ -30,8 +39,7 @@ export function parent(meta) {
  * @returns {string} Module directory name.
  */
 export function dirname(meta) {
-  const parentPath = parent(meta);
-  return parentPath.substring(parentPath.indexOf("/") + 1);
+  return meta.url.split("/").slice(-2)[0];
 }
 
 /**

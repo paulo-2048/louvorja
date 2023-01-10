@@ -12,6 +12,7 @@
     "scripts": {
         "clean": "lerna clean --yes && yarn",
         "build": "lerna run build",
+        "test": "lerna run test",
         "app": "yarn workspace @louvorja/app",
         "server": "yarn workspace @louvorja/server",
         "electron": "yarn workspace @louvorja/electron",
@@ -20,7 +21,9 @@
     },
     "devDependencies": {
         "concurrently": "^7.6.0",
+        "cross-env": "^7.0.3",
         "depcheck": "^1.4.3",
+        "jest": "^29.3.1",
         "lerna": "^6.3.0"
     }
 }

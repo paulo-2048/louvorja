@@ -1,11 +1,16 @@
 {
-    "name": "@louvorja/shared",
-    "version": "0.1.0",
-    "license": "MIT",
-    "type": "module",
-    "main": "index.js",
-    "devDependencies": {},
-    "dependencies": {
-        "ini": "^3.0.1"
-    }
+  "name": "@louvorja/shared",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "ini": "^3.0.1",
+    "pino": "^8.8.0",
+    "pino-pretty": "^9.1.1"
+  }
 }
