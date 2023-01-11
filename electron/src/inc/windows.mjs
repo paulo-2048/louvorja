@@ -102,6 +102,7 @@ export const CONTROL = {
   autoHideMenuBar: true,
   useContentSize: true,
   resizable: true,
+  closable: false,
   // webPreferences: {
   //   preload: path.join(__dirname, "./preload.js"),
   // },

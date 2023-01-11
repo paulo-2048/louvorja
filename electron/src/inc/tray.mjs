@@ -36,11 +36,10 @@ export function createTray(windows) {
       label: "Quit",
       type: "normal",
       click: (menuItem, browserWindow, event) => {
-        app.quit();
         app.on("before-quit", (event) => {
-          event.preventDefault();
           process.exit(0);
         });
+        app.quit();
       },
     },
   ]);
@@ -48,14 +47,5 @@ export function createTray(windows) {
   tray.setToolTip(CONFIG.app.name);
   tray.setContextMenu(contextMenu);
 
-  tray.on("click", function (e) {
-    tray.popUpContextMenu();
-  });
-  tray.on("double-click", function (e) {
-    tray.popUpContextMenu();
-  });
-  tray.on("right-click", function (e) {
-    tray.popUpContextMenu();
-  });
   return tray;
 }
