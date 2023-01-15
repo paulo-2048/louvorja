@@ -1,1 +1,1 @@
-export * from "./specs/liturgy.js";
+export * from "./specs/Liturgy.js";

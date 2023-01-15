@@ -2,6 +2,15 @@ export function toString() {
   return "module @louvorja/shared";
 }
 
+export {
+  ProjectionDispatcher,
+  ProjectionEvent,
+  ProjectionHandler,
+  DefaultProjectionHandler,
+  ProjectionHandlerLoader,
+  DefaultProjectionHandlerLoader,
+} from "./events";
+
 export * as logging from "./_logging.js";
 export * as modules from "./_modules.js";
 export * from "./_platform.js";
