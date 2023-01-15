@@ -1,10 +1,14 @@
+import { createLogger, STDOUT } from "../_logging.js";
+
+const LOGGER = createLogger(STDOUT);
+
 const EXCLUDED_METHODS = ["constructor", "element", "htmlToNodes"];
 
 export class ProjectionHandler {
   /** @type {HTMLElement} */
   #element;
-
-  elements = [];
+  events = [];
+  autoplay = false;
   /**
    *
    * @param {HTMLElement} target Target element for this handler instance.
@@ -19,17 +23,6 @@ export class ProjectionHandler {
   get element() {
     return this.#element;
   }
-
-  //   get elements() {
-  //     const els = this.elements;
-  //     // deep freeze
-  //     Object.keys(els).forEach((prop) => {
-  //       if (typeof els[prop] === "object" && !Object.isFrozen(els[prop])) {
-  //         deepFreeze(els[prop]);
-  //       }
-  //     });
-  //     return Object.freeze(els);
-  //   }
 
   /**
    * List supported actions (methods).
@@ -60,53 +53,59 @@ export class DefaultProjectionHandler extends ProjectionHandler {
    *
    * @param {{template: string, animate: { cssClass: string}}} args
    */
-  add(args) {
-    const { template, animate } = args;
-    for (const child of this.htmlToNodes(template)) {
-      const dataId = child.dataset.id;
-      if (dataId !== undefined) {
-        console.log(this.elements, dataId, this.elements.includes(dataId));
-        if (this.elements.includes(dataId)) {
-          this.remove({ dataId: dataId, delay: 0 });
-        }
-        this.elements.push(dataId);
+  add = async (event) => {
+    const id = event.id;
+    if (id !== undefined) {
+      const { template, animate } = event.args;
+      // remove previous if exits
+      if (this.events.includes(id)) {
+        await this.remove(event.clone({ args: { delay: 0 } }));
+      }
+      this.events.push(id);
+      for (const node of this.htmlToNodes(template)) {
+        node.dataset.eid = id;
         animate?.cssClass
           ?.split(" ")
-          .forEach((cssClass) => child.classList.add(cssClass));
-        this.element.appendChild(child);
-      } else {
-        throw new Error("Node don't have [data-id] attribute.");
+          .forEach((cssClass) => node.classList.add(cssClass));
+        // avoid flickering when removing same id node
+        setTimeout(() => this.element.appendChild(node), 0);
       }
+    } else {
+      throw new Error(
+        "Event don't have [id] attribute. Please use ProjectionEvent class to create events."
+      );
     }
-  }
+  };
 
   /**
    *
    * @param {{id: string, animate: { cssClass: string}}, delay: number} args
    */
-  remove(args) {
-    console.log("remove from add", args);
-    const { dataId, animate, delay } = args;
+  remove = async (event) => {
+    const id = event.id;
+    const { animate, delay } = event.args;
     try {
-      const children = this.element.querySelectorAll(`[data-id="${dataId}"]`);
+      const children = this.element.querySelectorAll(`[data-eid="${id}"]`);
+      const promises = [];
       for (const child of children) {
         animate?.cssClass
           ?.split(" ")
           .forEach((cssClass) => child.classList.add(cssClass));
-
-        setTimeout(() => {
-          child.remove();
-          if (this.elements.includes(dataId)) {
-            this.elements = this.elements.splice(
-              this.elements.indexOf(dataId),
-              1
-            );
-          }
-        }, delay || 0);
+        promises.push(
+          new Promise((resolve, reject) => {
+            setTimeout(() => {
+              child.remove();
+              if (this.events.includes(id)) {
+                this.events = this.events.splice(this.events.indexOf(id), 1);
+              }
+              resolve();
+            }, delay || 0);
+          })
+        );
       }
+      await Promise.all(promises);
     } catch (error) {
-      console.error(error);
-      throw new Error(`Element [data-id="${dataId}"] not found to remove.`);
+      LOGGER.error(error);
     }
-  }
+  };
 }

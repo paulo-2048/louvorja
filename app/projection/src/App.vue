@@ -14,8 +14,7 @@
     <div class="projection-left" ref="left"></div>
     <div class="projection-right" ref="right"></div>
     <div class="projection-top" ref="top"></div>
-    <div class="projection-bottom" ref="bottom">
-    </div>
+    <div class="projection-bottom" ref="bottom"></div>
     <div class="projection-center" ref="center"></div>
   </div>
 </template>
@@ -94,15 +93,15 @@ onMounted(async () => {
       try {
         handler = await loader.load(target);
       } catch (error) {
-        console.error(
-          `ProjectionHandler import error for ${target}. Will use default instead!`
+        console.warn(
+          `App (projection) import error for ${target}. Will use default instead!`
         );
       }
     }
     handlers[target] =
       handler || new DefaultProjectionHandler(elements[target].value);
   }
-  projectionDispatcher = new ProjectionDispatcher(elements, handlers);
+  projectionDispatcher = new ProjectionDispatcher(handlers);
 
   projectionDispatcher.register();
   resizePlayer();
@@ -112,24 +111,31 @@ onBeforeUnmount(() => {
   projectionDispatcher?.unregister();
 });
 
+window.addEventListener(
+  "beforeunload",
+  function (e) {
+    projectionDispatcher?.unregister();
+  },
+  false
+);
+
 window.onresize = resizePlayer;
 
 let counter = 0;
 
+const event = ProjectionEvent.create("title", "center", "add", {
+  template: "<h1 data-id='title'>Louvor JA</h1>",
+  animate: {
+    cssClass: "animate__animated animate__fadeIn animate__slow",
+  },
+});
+
 const add = () => {
-  projectionDispatcher.send(
-    ProjectionEvent.of("center", "add", {
-      template: "<h1 data-id='title'>Louvor JA</h1>",
-      animate: {
-        cssClass: "animate__animated animate__fadeIn animate__slow",
-      },
-    })
-  );
+  projectionDispatcher.send(event);
 };
 const rm = () => {
   projectionDispatcher.send(
-    ProjectionEvent.of("center", "remove", {
-      dataId: "title",
+    ProjectionEvent.of(event.id, event.target, "remove", {
       animate: {
         cssClass: "animate__animated animate__fadeOut animate__slow",
       },

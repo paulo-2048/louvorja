@@ -11,8 +11,9 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
+  base: "/control",
   server: {
     port: 5175,
-    strictPort: true,
+    strictPort: true
   }
 });

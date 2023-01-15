@@ -9,6 +9,7 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "cuid": "^2.1.8",
     "ini": "^3.0.1",
     "pino": "^8.8.0",
     "pino-pretty": "^9.1.1"

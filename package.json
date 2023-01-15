@@ -20,8 +20,10 @@
     "app-control": "yarn workspace @louvorja/app-control",
     "app-projection": "yarn workspace @louvorja/app-projection",
     "server": "yarn workspace @louvorja/server",
+    "shared": "yarn workspace @louvorja/shared",
     "electron": "yarn workspace @louvorja/electron",
     "dev": "concurrently --kill-others \"yarn app-control dev\" \"yarn app-projection dev\" \"yarn server dev\" \"yarn electron dev\"",
+    "dev:app": "concurrently --kill-others \"yarn app-control dev\" \"yarn app-projection dev\" \"yarn app dev\"",
     "depcheck": "yarn workspaces --all run depcheck"
   },
   "devDependencies": {

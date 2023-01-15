@@ -36,7 +36,7 @@
             aspect-ratio: 16/9;
           "
         >
-          PREVIEW
+          <iframe src="http://localhost:5177/projection"></iframe>
         </div>
       </v-navigation-drawer>
       <v-main style="height: 100vh">
@@ -64,7 +64,10 @@
         <v-bottom-navigation></v-bottom-navigation>
       </v-main>
 
-      <v-footer app> LITURGIA | UTILITARIOS (mobile only | use tabs instead of 2 cols)</v-footer>
+      <v-footer app>
+        LITURGIA | UTILITARIOS (mobile only | use tabs instead of 2
+        cols)</v-footer
+      >
     </v-layout>
   </v-app>
 </template>
@@ -73,8 +76,21 @@
 import { main as mainStore } from "@/store/index";
 import { useTheme } from "vuetify";
 import { strings } from "@louvorja/shared";
-import { theme as themeMod} from "@louvorja/shared";
+import { theme as themeMod } from "@louvorja/shared";
 import { computed, ref, watch } from "vue";
+
+import { ProjectionDispatcher, ProjectionEvent } from "@louvorja/shared";
+
+const projectionDispatcher = new ProjectionDispatcher();
+projectionDispatcher.register();
+
+window.addEventListener(
+  "beforeunload",
+  function (e) {
+    projectionDispatcher?.unregister();
+  },
+  false
+);
 
 const { defaultTheme, isDarkMode, NamedThemeDefinition } = themeMod;
 
