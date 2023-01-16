@@ -2,16 +2,8 @@ import { KEY } from "./ProjectionDispatcher.js";
 import cuid from "cuid";
 
 export class ProjectionEvent extends CustomEvent {
-  static create(targetOrId, commandOrTarget, argsOrCommand, argsIfId) {
-    const shift = !!argsIfId;
-    const id = shift
-      ? targetOrId.startsWith("evt")
-        ? targetOrId
-        : `evt_${targetOrId}`
-      : `evt_${cuid()}`;
-    const target = shift ? commandOrTarget : targetOrId;
-    const command = shift ? argsOrCommand : commandOrTarget;
-    const args = shift ? argsIfId : argsOrCommand;
+  static create(target, command, args) {
+    const id = `evt_${cuid()}`;
     return new ProjectionEvent(id, target, command, args);
   }
 
@@ -56,6 +48,15 @@ export class ProjectionEvent extends CustomEvent {
   /** @type {object} */
   get args() {
     return this.detail.args;
+  }
+
+  /** @type {string} */
+  get dataId() {
+    return this.detail.dataId;
+  }
+
+  with(details) {
+    return ProjectionEvent.of(Object.assign(this.toJSON(), details));
   }
 
   toString() {

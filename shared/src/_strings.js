@@ -1,3 +1,19 @@
+export class Stringifyable {
+  static of(object) {
+    const obj = new Stringifyable();
+    Object.assign(this, object);
+    return obj;
+  }
+
+  toString() {
+    return JSON.stringify(this);
+  }
+
+  toJSON() {
+    return { ...this };
+  }
+}
+
 /**
  *
  * @param {string} str

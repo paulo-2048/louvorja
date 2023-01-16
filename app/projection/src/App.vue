@@ -10,6 +10,7 @@
     <div class="projection-main" ref="main">
       <button @click="add()">add</button>
       <button @click="rm()">rm</button>
+      <button @click="clear()">clear</button>
     </div>
     <div class="projection-left" ref="left"></div>
     <div class="projection-right" ref="right"></div>
@@ -123,23 +124,40 @@ window.onresize = resizePlayer;
 
 let counter = 0;
 
-const event = ProjectionEvent.create("title", "center", "add", {
+const event = ProjectionEvent.create("center", "add", {
   template: "<h1 data-id='title'>Louvor JA</h1>",
   animate: {
-    cssClass: "animate__animated animate__fadeIn animate__slow",
+    cssClass: "animate__animated animate__fadeIn animate__faster",
   },
 });
 
 const add = () => {
   projectionDispatcher.send(event);
 };
+const clear = () => {
+  projectionDispatcher.send(
+    event.with({
+      command: "clear",
+      args: {
+        animate: {
+          cssClass: "animate__animated animate__fadeOut animate__faster",
+        },
+        delay: 500,
+      },
+    })
+  );
+};
 const rm = () => {
   projectionDispatcher.send(
-    ProjectionEvent.of(event.id, event.target, "remove", {
-      animate: {
-        cssClass: "animate__animated animate__fadeOut animate__slow",
+    event.with({
+      command: "remove",
+      args: {
+        dataId: "title",
+        animate: {
+          cssClass: "animate__animated animate__fadeOut animate__faster",
+        },
+        delay: 500,
       },
-      delay: 2000,
     })
   );
 };

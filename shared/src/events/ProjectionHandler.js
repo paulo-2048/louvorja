@@ -7,7 +7,6 @@ const EXCLUDED_METHODS = ["constructor", "element", "htmlToNodes"];
 export class ProjectionHandler {
   /** @type {HTMLElement} */
   #element;
-  events = [];
   autoplay = false;
   /**
    *
@@ -54,26 +53,16 @@ export class DefaultProjectionHandler extends ProjectionHandler {
    * @param {{template: string, animate: { cssClass: string}}} args
    */
   add = async (event) => {
-    const id = event.id;
-    if (id !== undefined) {
-      const { template, animate } = event.args;
-      // remove previous if exits
-      if (this.events.includes(id)) {
-        await this.remove(event.clone({ args: { delay: 0 } }));
-      }
-      this.events.push(id);
-      for (const node of this.htmlToNodes(template)) {
-        node.dataset.eid = id;
-        animate?.cssClass
-          ?.split(" ")
-          .forEach((cssClass) => node.classList.add(cssClass));
-        // avoid flickering when removing same id node
-        setTimeout(() => this.element.appendChild(node), 0);
-      }
-    } else {
-      throw new Error(
-        "Event don't have [id] attribute. Please use ProjectionEvent class to create events."
-      );
+    const id = event.dataId;
+
+    const { template, animate } = event.args;
+    for (const node of this.htmlToNodes(template)) {
+      node.dataset.id = node.dataset.id || id;
+      animate?.cssClass
+        ?.split(" ")
+        .forEach((cssClass) => node.classList.add(cssClass));
+      // avoid flickering when removing same id node
+      setTimeout(() => this.element.appendChild(node), 0);
     }
   };
 
@@ -82,10 +71,45 @@ export class DefaultProjectionHandler extends ProjectionHandler {
    * @param {{id: string, animate: { cssClass: string}}, delay: number} args
    */
   remove = async (event) => {
-    const id = event.id;
+    let ids = event.args.dataId || [];
+    if (typeof ids === "string") {
+      ids = [ids];
+    } else if (!ids.length && event.args.template?.includes("data-id")) {
+      ids = this.htmlToNodes(args.template).map((node) => node.dataset.id);
+    }
+    if (!ids.length) {
+      throw new Error("Data id (data-id) not provided! Use clear instead.");
+    }
+
     const { animate, delay } = event.args;
+    const promises = [];
+    for (const id of ids) {
+      try {
+        const children = this.element.querySelectorAll(`[data-id="${id}"]`);
+        for (const child of children) {
+          animate?.cssClass
+            ?.split(" ")
+            .forEach((cssClass) => child.classList.add(cssClass));
+          promises.push(
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                child.remove();
+                resolve();
+              }, delay || 0);
+            })
+          );
+        }
+      } catch (error) {
+        LOGGER.error(error);
+      }
+      await Promise.all(promises);
+    }
+  };
+
+  clear = async (event) => {
     try {
-      const children = this.element.querySelectorAll(`[data-eid="${id}"]`);
+      const animate = event.args.animate;
+      const children = this.element.querySelectorAll(`*`);
       const promises = [];
       for (const child of children) {
         animate?.cssClass
@@ -95,11 +119,8 @@ export class DefaultProjectionHandler extends ProjectionHandler {
           new Promise((resolve, reject) => {
             setTimeout(() => {
               child.remove();
-              if (this.events.includes(id)) {
-                this.events = this.events.splice(this.events.indexOf(id), 1);
-              }
               resolve();
-            }, delay || 0);
+            }, event.args.delay || 0);
           })
         );
       }
