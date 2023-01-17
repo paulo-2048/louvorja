@@ -9,6 +9,21 @@ const routes = [
     component: () => import("@/views/Home.vue"),
   },
   {
+    path: "/liturgy",
+    name: "liturgy",
+    tab: true,
+    icon: "list-timeline",
+    component: () => import("@/views/Home.vue"),
+  },
+  {
+    path: "/tools",
+    name: "tools",
+    tab: true,
+    //icon: "book-open-cover",
+    icon: "hasd",
+    component: () => import("@/views/Home.vue"),
+  },
+  {
     path: "/hymnal",
     name: "hymnal",
     tab: true,
@@ -42,13 +57,6 @@ const routes = [
     name: "bible",
     tab: true,
     icon: "book-bible",
-    component: () => import("@/views/ScheduledItems.vue"),
-  },
-  {
-    path: "/liturgy",
-    name: "liturgy",
-    tab: true,
-    icon: "list-timeline",
     component: () => import("@/views/ScheduledItems.vue"),
   },
   {
@@ -93,7 +101,7 @@ const routes = [
     component: () => import("@/views/SlideEditor.vue"),
   },
   {
-    path: '/:pathMatch(.*)*',
+    path: "/:pathMatch(.*)*",
     redirect: "/",
   },
 ];

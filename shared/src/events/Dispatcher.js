@@ -8,14 +8,9 @@ export const KEY = "louvorja:projection:event";
 export const KEY_CONTROL = "louvorja:mode:control";
 export const KEY_PROJECTION = "louvorja:mode:projection";
 
-export const CONTROL = "control";
-export const PROJECTION = "projection";
-export const PREVIEW = "preview";
-
 export class Dispatcher {
   handlers;
   mode;
-  autoplay;
 
   /**
    *
@@ -24,11 +19,14 @@ export class Dispatcher {
   constructor(handlers = null) {
     // use first path segment as mode
     this.mode = window.location.pathname.split("/").filter((el) => !!el)[0];
-    this.autoplay = this.mode === PROJECTION;
     this.handlers = handlers || {};
-    LOGGER.warn(`Mode: ${this.mode} with handlers ${Object.keys(this.handlers).join(', ')}`);
+    LOGGER.warn(
+      `Mode: ${this.mode} with handlers ${Object.keys(this.handlers).join(
+        ", "
+      )}`
+    );
     Object.values(this.handlers).forEach((h) => (h.autoplay = this.autoplay));
-    if ([PROJECTION, PREVIEW].includes(this.mode) && !handlers) {
+    if (this.mode !== "control" && !handlers) {
       throw new Error(
         `Modes ${PROJECTION} and ${PREVIEW} need handlers. None provided!`
       );
@@ -65,9 +63,7 @@ export class Dispatcher {
   /** @param {Event} event */
   receive = async (event) => {
     LOGGER.debug(`Event ${KEY}: ${event}`);
-    if (this.mode === PROJECTION) {
-      this.process(Event.of(event));
-    }
+    this.process(Event.of(event));
   };
 
   receiveStorageEvent = (event) => {

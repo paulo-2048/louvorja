@@ -1,17 +1,8 @@
 <template>
   <div class="projection-wrapper" ref="wrapper">
     <div class="projection-background" ref="background"></div>
-    <div class="projection-player" ref="player">
-      <!-- <video autoplay controls poster="poster.jpg">
-        <source src="./movie.mp4" type="video/mp4" />
-      </video> -->
-    </div>
-
-    <div class="projection-main" ref="main">
-      <button @click="add()">add</button>
-      <button @click="rm()">rm</button>
-      <button @click="clear()">clear</button>
-    </div>
+    <div class="projection-player" ref="player"></div>
+    <div class="projection-main" ref="main"></div>
     <div class="projection-left" ref="left"></div>
     <div class="projection-right" ref="right"></div>
     <div class="projection-top" ref="top"></div>
@@ -55,7 +46,7 @@ const center = ref(null);
 
 let videoTag;
 
-const resizePlayer = (event = null) => {
+const resizePlayers = (event = null) => {
   const vw = Math.max(
     document.documentElement.clientWidth || 0,
     window.innerWidth || 0
@@ -64,8 +55,10 @@ const resizePlayer = (event = null) => {
     document.documentElement.clientHeight || 0,
     window.innerHeight || 0
   );
-  videoTag.width = vw;
-  videoTag.height = vh;
+  document.querySelector("video.fullscreen")?.forEach((video) => {
+    video.width = vw;
+    video.height = vh;
+  });
 };
 
 const targetHandlers = {};
@@ -99,13 +92,12 @@ onMounted(async () => {
         );
       }
     }
-    handlers[target] =
-      handler || new DefaultHandler(elements[target].value);
+    handlers[target] = handler || new DefaultHandler(elements[target].value);
   }
   dispatcher = new Dispatcher(handlers);
 
   dispatcher.register();
-  resizePlayer();
+  resizePlayers();
 });
 
 onBeforeUnmount(() => {
@@ -120,47 +112,8 @@ window.addEventListener(
   false
 );
 
-window.onresize = resizePlayer;
+window.onresize = resizePlayers;
 
-let counter = 0;
-
-const event = Event.create("center", "add", {
-  template: "<h1 data-id='title'>Louvor JA</h1>",
-  animate: {
-    cssClass: "animate__animated animate__fadeIn animate__faster",
-  },
-});
-
-const add = () => {
-  dispatcher.send(event);
-};
-const clear = () => {
-  dispatcher.send(
-    event.with({
-      command: "clear",
-      args: {
-        animate: {
-          cssClass: "animate__animated animate__fadeOut animate__faster",
-        },
-        delay: 500,
-      },
-    })
-  );
-};
-const rm = () => {
-  dispatcher.send(
-    event.with({
-      command: "remove",
-      args: {
-        dataId: "title",
-        animate: {
-          cssClass: "animate__animated animate__fadeOut animate__faster",
-        },
-        delay: 500,
-      },
-    })
-  );
-};
 </script>
 
 <style scoped lang="scss">
