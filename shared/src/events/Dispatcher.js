@@ -1,5 +1,5 @@
-import { ProjectionEvent } from "./ProjectionEvent.js";
-import { ProjectionHandler } from "./ProjectionHandler.js";
+import { Event } from "./Event.js";
+import { Handler } from "./Handler.js";
 import { createLogger, STDOUT } from "../_logging.js";
 
 const LOGGER = createLogger(STDOUT);
@@ -12,14 +12,14 @@ export const CONTROL = "control";
 export const PROJECTION = "projection";
 export const PREVIEW = "preview";
 
-export class ProjectionDispatcher {
+export class Dispatcher {
   handlers;
   mode;
   autoplay;
 
   /**
    *
-   * @param {ProjectionHandler[]}
+   * @param {Handler[]}
    */
   constructor(handlers = null) {
     // use first path segment as mode
@@ -35,7 +35,7 @@ export class ProjectionDispatcher {
     }
   }
 
-  /** @param {ProjectionEvent} event */
+  /** @param {Event} event */
   send(event) {
     const json = JSON.stringify(event.detail);
     LOGGER.debug(event, json);
@@ -46,7 +46,7 @@ export class ProjectionDispatcher {
     window.dispatchEvent(event);
   }
 
-  /** @param {ProjectionEvent} event */
+  /** @param {Event} event */
   process = async (event) => {
     const { target, command, args } = event;
     try {
@@ -62,11 +62,11 @@ export class ProjectionDispatcher {
     }
   };
 
-  /** @param {ProjectionEvent} event */
+  /** @param {Event} event */
   receive = async (event) => {
     LOGGER.debug(`Event ${KEY}: ${event}`);
     if (this.mode === PROJECTION) {
-      this.process(ProjectionEvent.of(event));
+      this.process(Event.of(event));
     }
   };
 

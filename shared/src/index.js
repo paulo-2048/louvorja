@@ -3,12 +3,12 @@ export function toString() {
 }
 
 export {
-  ProjectionDispatcher,
-  ProjectionEvent,
-  ProjectionHandler,
-  DefaultProjectionHandler,
-  ProjectionHandlerLoader,
-  DefaultProjectionHandlerLoader,
+  Dispatcher,
+  Event,
+  Handler,
+  DefaultHandler,
+  HandlerLoader,
+  DefaultHandlerLoader,
 } from "./events";
 
 export * as logging from "./_logging.js";

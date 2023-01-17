@@ -2,9 +2,9 @@
   <div class="projection-wrapper" ref="wrapper">
     <div class="projection-background" ref="background"></div>
     <div class="projection-player" ref="player">
-      <video autoplay controls poster="poster.jpg">
+      <!-- <video autoplay controls poster="poster.jpg">
         <source src="./movie.mp4" type="video/mp4" />
-      </video>
+      </video> -->
     </div>
 
     <div class="projection-main" ref="main">
@@ -25,10 +25,10 @@ import { ref, onMounted, onBeforeUnmount } from "vue";
 import { LoremIpsum } from "lorem-ipsum";
 
 import {
-  ProjectionDispatcher,
-  ProjectionEvent,
-  DefaultProjectionHandler,
-  DefaultProjectionHandlerLoader,
+  Dispatcher,
+  Event,
+  DefaultHandler,
+  DefaultHandlerLoader,
 } from "@louvorja/shared";
 
 const loremIpsum = new LoremIpsum({
@@ -70,7 +70,7 @@ const resizePlayer = (event = null) => {
 
 const targetHandlers = {};
 
-let projectionDispatcher = null;
+let dispatcher = null;
 
 onMounted(async () => {
   videoTag = player.value.querySelector("video");
@@ -86,7 +86,7 @@ onMounted(async () => {
     bottom,
     center,
   };
-  const loaders = [new DefaultProjectionHandlerLoader()];
+  const loaders = [new DefaultHandlerLoader()];
   const handlers = {};
   for (const target in elements) {
     let handler;
@@ -100,22 +100,22 @@ onMounted(async () => {
       }
     }
     handlers[target] =
-      handler || new DefaultProjectionHandler(elements[target].value);
+      handler || new DefaultHandler(elements[target].value);
   }
-  projectionDispatcher = new ProjectionDispatcher(handlers);
+  dispatcher = new Dispatcher(handlers);
 
-  projectionDispatcher.register();
+  dispatcher.register();
   resizePlayer();
 });
 
 onBeforeUnmount(() => {
-  projectionDispatcher?.unregister();
+  dispatcher?.unregister();
 });
 
 window.addEventListener(
   "beforeunload",
   function (e) {
-    projectionDispatcher?.unregister();
+    dispatcher?.unregister();
   },
   false
 );
@@ -124,7 +124,7 @@ window.onresize = resizePlayer;
 
 let counter = 0;
 
-const event = ProjectionEvent.create("center", "add", {
+const event = Event.create("center", "add", {
   template: "<h1 data-id='title'>Louvor JA</h1>",
   animate: {
     cssClass: "animate__animated animate__fadeIn animate__faster",
@@ -132,10 +132,10 @@ const event = ProjectionEvent.create("center", "add", {
 });
 
 const add = () => {
-  projectionDispatcher.send(event);
+  dispatcher.send(event);
 };
 const clear = () => {
-  projectionDispatcher.send(
+  dispatcher.send(
     event.with({
       command: "clear",
       args: {
@@ -148,7 +148,7 @@ const clear = () => {
   );
 };
 const rm = () => {
-  projectionDispatcher.send(
+  dispatcher.send(
     event.with({
       command: "remove",
       args: {

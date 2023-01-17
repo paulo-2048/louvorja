@@ -4,7 +4,7 @@ const LOGGER = createLogger(STDOUT);
 
 const EXCLUDED_METHODS = ["constructor", "element", "htmlToNodes"];
 
-export class ProjectionHandler {
+export class Handler {
   /** @type {HTMLElement} */
   #element;
   autoplay = false;
@@ -43,7 +43,7 @@ export class ProjectionHandler {
   }
 }
 
-export class DefaultProjectionHandler extends ProjectionHandler {
+export class DefaultHandler extends Handler {
   constructor(element) {
     super(element);
   }

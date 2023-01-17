@@ -1,4 +1,4 @@
-export class ProjectionHandlerLoader {
+export class HandlerLoader {
   /** @type(string) */
   async load(target) {
     await new Promise((resolve, reject) => {
@@ -7,7 +7,7 @@ export class ProjectionHandlerLoader {
   }
 }
 
-export class DefaultProjectionHandlerLoader extends ProjectionHandlerLoader {
+export class DefaultHandlerLoader extends HandlerLoader {
   /** @type(string) */
   async load(target) {
     await import(`./handlers/${target}.js`);

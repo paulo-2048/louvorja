@@ -1,10 +1,10 @@
-import { KEY } from "./ProjectionDispatcher.js";
+import { KEY } from "./Dispatcher.js";
 import cuid from "cuid";
 
-export class ProjectionEvent extends CustomEvent {
+export class Event extends CustomEvent {
   static create(target, command, args) {
     const id = `evt_${cuid()}`;
-    return new ProjectionEvent(id, target, command, args);
+    return new Event(id, target, command, args);
   }
 
   static of(eventOrId, target, command, args) {
@@ -16,7 +16,7 @@ export class ProjectionEvent extends CustomEvent {
     } else {
       id = eventOrId;
     }
-    return new ProjectionEvent(id, target, command, args);
+    return new Event(id, target, command, args);
   }
 
   constructor(id, target, command, args = {}) {
@@ -56,7 +56,7 @@ export class ProjectionEvent extends CustomEvent {
   }
 
   with(details) {
-    return ProjectionEvent.of(Object.assign(this.toJSON(), details));
+    return Event.of(Object.assign(this.toJSON(), details));
   }
 
   toString() {

@@ -79,15 +79,15 @@ import { strings } from "@louvorja/shared";
 import { theme as themeMod } from "@louvorja/shared";
 import { computed, ref, watch } from "vue";
 
-import { ProjectionDispatcher, ProjectionEvent } from "@louvorja/shared";
+import { Dispatcher, Event } from "@louvorja/shared";
 
-const projectionDispatcher = new ProjectionDispatcher();
-projectionDispatcher.register();
+const dispatcher = new Dispatcher();
+dispatcher.register();
 
 window.addEventListener(
   "beforeunload",
   function (e) {
-    projectionDispatcher?.unregister();
+    dispatcher?.unregister();
   },
   false
 );
