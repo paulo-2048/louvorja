@@ -14,14 +14,5 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    console.log(this.$router.currentRoute.value.fullPath);
-    return this.$store?.state || { debug: true };
-  },
-  components: {
-    ico: () => import("@/components/Icon.vue"),
-  },
-};
+<script setup>
 </script>
