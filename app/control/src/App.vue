@@ -1,29 +1,31 @@
 <template>
-  <v-app>
-    <v-layout>
+  <v-app full-height>
+    <v-layout full-height>
       <v-system-bar
         >system status: is WEb? is Desktop? server websocket status? projection
         activated?</v-system-bar
       >
 
       <v-app-bar density="compact" ref="app-bar">
-        <template v-slot:prepend>
-          <img
-            style="height: 46px; width: 46px"
-            src="src/assets/images/louvor-ja.svg"
-          />
-        </template>
-
         <template v-slot:title>
           <v-tabs centered grow>
-            <v-tab to="liturgy">
+            <v-tab :to="{ name: 'home' }">
+              <v-img
+                style="height: 100%; width: 36px"
+                src="src/assets/images/louvor-ja.svg"
+              ></v-img>
+              <span class="ml-4 d-none d-sm-inline-block">Louvor JA</span>
+            </v-tab>
+            <v-tab :to="{ name: 'liturgy' }" ripple exact>
               <v-icon size="x-large">mdi-church</v-icon>
+              <span class="ml-4 d-none d-sm-inline-block">Liturgy</span>
               <v-tooltip activator="parent" location="bottom">
                 Liturgy
               </v-tooltip>
             </v-tab>
-            <v-tab to="tools">
+            <v-tab :to="{ name: 'tools' }" ripple exact>
               <v-icon size="x-large">mdi-toolbox</v-icon>
+              <span class="ml-4 d-none d-sm-inline-block">Tools</span>
               <v-tooltip activator="parent" location="bottom">
                 Tools
               </v-tooltip>
@@ -61,7 +63,7 @@
           <v-icon>mdi-monitor-eye</v-icon>
         </v-btn>
       </v-app-bar>
-      <v-navigation-drawer location="right" v-model="drawerRight" permanent>
+      <v-navigation-drawer location="right" v-model="drawerRight">
         <div>
           <v-btn
             width="33.33333%"
@@ -94,12 +96,8 @@
         <div class="preview" :style="{ aspectRatio: aspectRatio }">
           <iframe :src="`${origin}/preview`"> </iframe>
         </div>
-
-        <v-btn @click="add()">add</v-btn>
-        <v-btn @click="rm()">rm</v-btn>
-        <v-btn @click="clear()">clear</v-btn>
       </v-navigation-drawer>
-      <v-main>
+      <v-main scrollable>
         <v-container fluid>
           <router-view v-slot="{ Component, route }">
             <transition name="fade">
@@ -126,7 +124,6 @@ import { strings } from "@louvorja/shared";
 import { theme as themeMod } from "@louvorja/shared";
 import { computed, ref, watch } from "vue";
 
-import { Dispatcher, Event } from "@louvorja/shared";
 
 const drawerRight = ref(null);
 const aspectRatio = ref("16/9");
@@ -184,60 +181,6 @@ window.matchMedia("(prefers-color-scheme: dark)").addListener(() => {
   toggleTheme(defaultTheme());
 });
 
-/*
- *  DISPACTHER
- */
-
-const event = Event.create("center", "add", {
-  template: "<h1 data-id='title' style='font-size: 10vh'>Louvor JA</h1>",
-  animate: {
-    cssClass: "animate__animated animate__fadeIn animate__faster",
-  },
-});
-
-const dispatcher = new Dispatcher();
-dispatcher.register();
-
-window.addEventListener(
-  "beforeunload",
-  function (e) {
-    dispatcher?.unregister();
-  },
-  false
-);
-
-const add = () => {
-  dispatcher.send(event);
-};
-const clear = () => {
-  dispatcher.send(
-    event.with({
-      layer: "*",
-      command: "clear",
-      args: {
-        animate: {
-          cssClass: "animate__animated animate__fadeOut animate__faster",
-        },
-        delay: 500,
-      },
-    })
-  );
-};
-const rm = () => {
-  dispatcher.send(
-    event.with({
-      layer: "center",
-      command: "remove",
-      args: {
-        dataId: "title",
-        animate: {
-          cssClass: "animate__animated animate__fadeOut animate__faster",
-        },
-        delay: 500,
-      },
-    })
-  );
-};
 </script>
 
 <style scoped lang="scss">
