@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "clean": "rimraf dist",
-    "build": "lerna run build:dist --scope @louvorja/app-*",
+    "build": "lerna run build:dist --scope @louvorja/app-* && cp index.html dist/",
     "dev": "nodemon server-dev-proxied.js"
   },
   "devDependencies": {
