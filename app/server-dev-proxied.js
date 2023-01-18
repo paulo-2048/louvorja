@@ -10,19 +10,19 @@ server.register(proxy, {
 
 const modes = ["projection", "preview", "return", "bible", "lyrics", "chords"];
 
-for (const mode of modes) {
-  console.log(`Registering proxy for mode ${mode}`);
-  server.register(proxy, {
-    upstream: "http://localhost:5176/projection",
-    prefix: `/${mode}`,
-  });
-}
+server.register(proxy, {
+  upstream: "http://localhost:5176/projection",
+  prefix: `/projection`,
+});
 
-server.listen({ host: '0.0.0.0', port: 5177 }, (error, address) => {
+server.listen({ host: "0.0.0.0", port: 5177 }, (error, address) => {
   const file = import.meta.url.split("/").pop();
   console.log(file, address.replace("[::1]", "localhost") + "/control");
   modes.forEach((mode) =>
-    console.log(file, address.replace("[::1]", "localhost") + `/${mode}`)
+    console.log(
+      file,
+      address.replace("[::1]", "localhost") + `/projection?mode=${mode}`
+    )
   );
 
   if (error) {

@@ -11,7 +11,7 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-  base: "/projection",
+  base: "./",
   server: {
     port: 5176,
     strictPort: true,

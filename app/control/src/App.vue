@@ -94,7 +94,7 @@
         </div>
 
         <div class="preview" :style="{ aspectRatio: aspectRatio }">
-          <iframe :src="`${origin}/preview`"> </iframe>
+          <iframe :src="`${projectionUrl}?mode=preview`"> </iframe>
         </div>
       </v-navigation-drawer>
       <v-main scrollable>
@@ -124,10 +124,8 @@ import { strings } from "@louvorja/shared";
 import { theme as themeMod } from "@louvorja/shared";
 import { computed, ref, watch } from "vue";
 
-
 const drawerRight = ref(null);
 const aspectRatio = ref("16/9");
-const origin = window.location.origin;
 
 const { defaultTheme, isDarkMode, NamedThemeDefinition } = themeMod;
 
@@ -160,8 +158,11 @@ const toggleTheme = (newTheme) => {
   }
 };
 
+const projectionUrl = `${
+  window.location.origin
+}${window.location.pathname.replace("/control", "/projection")}`;
 const openProjection = () => {
-  window.open(`${origin}/projection`, "projection");
+  window.open(`${projectionUrl}?mode=projection`, "projection");
 };
 
 store.ui.theme = theme.global.name.value;
@@ -180,7 +181,6 @@ const themeIcon = computed(() => {
 window.matchMedia("(prefers-color-scheme: dark)").addListener(() => {
   toggleTheme(defaultTheme());
 });
-
 </script>
 
 <style scoped lang="scss">

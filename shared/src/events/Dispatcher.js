@@ -27,9 +27,7 @@ export class Dispatcher {
     );
     Object.values(this.handlers).forEach((h) => (h.autoplay = this.autoplay));
     if (this.mode !== "control" && !handlers) {
-      throw new Error(
-        `Modes ${PROJECTION} and ${PREVIEW} need handlers. None provided!`
-      );
+      LOGGER.error(`None handlers provided!`);
     }
   }
 

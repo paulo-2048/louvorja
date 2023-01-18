@@ -6,7 +6,7 @@
     "private": true,
     "scripts": {
         "clean": "rimraf dist",
-        "dev": "vite",
+        "dev": "vite --base /projection/",
         "build": "vite build",
         "build:dist": "vite build --outDir ../dist/projection",
         "preview": "vite preview",
