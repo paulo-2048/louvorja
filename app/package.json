@@ -10,7 +10,6 @@
     "dev": "nodemon server-dev-proxied.js"
   },
   "devDependencies": {
-    "@fastify/express": "^2.3.0",
     "@fastify/http-proxy": "^8.4.0",
     "fastify": "^4.11.0"
   }

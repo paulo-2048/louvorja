@@ -15,6 +15,7 @@
     "dependencies": {
         "@louvorja/shared": "link:./shared",
         "@mdi/font": "^7.1.96",
+        "cuid": "^2.1.8",
         "pinia": "^2.0.28",
         "vue": "^3.2.45",
         "vue-country-flag-next": "^2.3.2",

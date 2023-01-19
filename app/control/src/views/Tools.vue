@@ -10,7 +10,6 @@
       class="white flex-grow-1 fill-height"
       style="overflow: auto"
     >
-      <json-viewer :value="$data" copyable boxed sort theme="jv-light" />
     </div>
   </div>
 </template>

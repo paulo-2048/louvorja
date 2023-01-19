@@ -13,7 +13,6 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
-import { LoremIpsum } from "lorem-ipsum";
 
 import {
   Dispatcher,
@@ -21,18 +20,6 @@ import {
   DefaultHandler,
   DefaultHandlerLoader,
 } from "@louvorja/shared";
-
-const loremIpsum = new LoremIpsum({
-  sentencesPerParagraph: {
-    max: 8,
-    min: 4,
-  },
-  wordsPerSentence: {
-    max: 16,
-    min: 4,
-  },
-});
-const lorem = () => loremIpsum.generateParagraphs(1);
 
 const wrapper = ref(null);
 const background = ref(null);

@@ -16,18 +16,7 @@
         "@louvorja/shared": "link:./shared",
         "@mdi/font": "^7.1.96",
         "animate.css": "^4.1.1",
-        "lorem-ipsum": "^2.0.8",
-        "pinia": "^2.0.28",
-        "vue": "^3.2.45",
-        "vue-country-flag-next": "^2.3.2",
-        "vue-fullscreen": "^3.1.1",
-        "vue-i18n": "9",
-        "vue-router": "^4.1.6",
-        "vue3-draggable": "^2.0.9",
-        "vue3-json-viewer": "^2.2.2",
-        "vue3-shortkey": "^4.0.0",
-        "vue3-storage": "^0.1.11",
-        "vuetify": "^3.0.5"
+        "vue": "^3.2.45"
     },
     "devDependencies": {
         "@intlify/unplugin-vue-i18n": "^0.8.1",

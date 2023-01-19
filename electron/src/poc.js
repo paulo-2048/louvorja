@@ -7,7 +7,6 @@ const {
   default: installExtension,
   VUEJS3_DEVTOOLS,
 } = require("electron-devtools-installer");
-const Koa = require("koa");
 
 function installVueJS3DevTools() {
   installExtension(VUEJS3_DEVTOOLS)

@@ -60,7 +60,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-image: url(src/assets/images/louvor-ja.svg);
+  background-image: url(images/louvor-ja.svg);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;

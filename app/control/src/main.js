@@ -6,7 +6,6 @@ import i18n from "./partials/i18n";
 import store from "./store/index.js";
 import Vue3Storage from "vue3-storage";
 import { StorageType } from "vue3-storage";
-import JsonViewer  from "vue3-json-viewer";
 import * as FlagIcon from "vue-country-flag-next";
 import VueFullscreen from "vue-fullscreen";
 import ShortKey from "vue3-shortkey";
@@ -16,7 +15,6 @@ const app = createApp(App);
 
 app
   .use(i18n)
-  .use(JsonViewer)
   .use(router)
   .use(ShortKey, { prevent: ["input", "textarea"] })
   .use(createPinia())
