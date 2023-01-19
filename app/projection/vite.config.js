@@ -16,4 +16,15 @@ export default defineConfig({
     port: 5176,
     strictPort: true,
   },
+  build: {
+    assetsDir: "assets",
+    assetsInlineLimit: "0",
+    cssCodeSplit: false,
+    sourcemap: "inline",
+    minify: false,
+    copyPublicDir: true,
+    rollupOptions: {
+      input: "./projection.html",
+    },
+  },
 });
