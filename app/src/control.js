@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import App from "./App.vue";
+import App from "./Control.vue";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
 import i18n from "./partials/i18n";

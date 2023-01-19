@@ -63,7 +63,7 @@
           <v-icon>mdi-monitor-eye</v-icon>
         </v-btn>
       </v-app-bar>
-      <v-navigation-drawer location="right" v-model="drawerRight">
+      <v-navigation-drawer location="right" v-model="drawerRight" permanent>
         <div>
           <v-btn
             width="33.33333%"

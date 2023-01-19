@@ -1,1 +1,0 @@
-ignores: ["@louvorja/shared", "@mdi/font", "@intlify/unplugin-vue-i18n", "@rushstack/eslint-patch", "@vue/eslint-config-prettier", "eslint-plugin-vue"]

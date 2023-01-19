@@ -1560,10 +1560,7 @@
     npmlog "^6.0.2"
     write-file-atomic "^4.0.1"
 
-"@louvorja/shared@link:./app/control/shared":
-  version "0.0.0"
-
-"@louvorja/shared@link:./app/projection/shared":
+"@louvorja/shared@link:./app/shared":
   version "0.0.0"
 
 "@louvorja/shared@link:./server/shared":

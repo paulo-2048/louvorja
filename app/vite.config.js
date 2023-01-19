@@ -13,9 +13,10 @@ export default defineConfig({
   },
   base: "./",
   server: {
-    port: 5176,
+    port: 5175,
     strictPort: true,
   },
+  publicDir: "public",
   build: {
     assetsDir: "assets",
     assetsInlineLimit: "0",
@@ -24,7 +25,11 @@ export default defineConfig({
     minify: false,
     copyPublicDir: true,
     rollupOptions: {
-      input: "./projection.html",
+      input: {
+        index: "./index.html",
+        control: "./control.html",
+        projection: "./projection.html",
+      },
     },
   },
 });

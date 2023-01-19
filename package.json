@@ -6,8 +6,6 @@
   "workspaces": [
     "shared",
     "server",
-    "app/control",
-    "app/projection",
     "app",
     "electron"
   ],
@@ -17,13 +15,10 @@
     "build": "lerna run build --ignore @louvorja/app-*",
     "test": "lerna run test",
     "app": "yarn workspace @louvorja/app",
-    "app-control": "yarn workspace @louvorja/app-control",
-    "app-projection": "yarn workspace @louvorja/app-projection",
     "server": "yarn workspace @louvorja/server",
     "shared": "yarn workspace @louvorja/shared",
     "electron": "yarn workspace @louvorja/electron",
-    "dev": "concurrently --kill-others \"yarn app-control dev\" \"yarn app-projection dev\" \"yarn server dev\" \"yarn electron dev\"",
-    "dev:app": "concurrently --kill-others \"yarn app-control dev\" \"yarn app-projection dev\" \"yarn app dev\"",
+    "dev": "concurrently --kill-others \"yarn app dev\" \"yarn server dev\" \"yarn electron dev\"",
     "depcheck": "yarn workspaces --all run depcheck"
   },
   "devDependencies": {
