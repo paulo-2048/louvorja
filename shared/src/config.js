@@ -13,6 +13,12 @@ export class AppConfig {
    * @type {string}
    */
   description = "Coletânea e Utilidades Louvor JA";
+
+  /**
+   * App start page
+   * @type {string} home, liturgy or tools.
+   */
+  startPage = "liturgy";
 }
 
 /**
@@ -81,3 +87,5 @@ export const CONFIG = (function () {
   }
   return config;
 })();
+
+export default CONFIG;

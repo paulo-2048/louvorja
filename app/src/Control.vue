@@ -10,10 +10,10 @@
         <template v-slot:title>
           <v-tabs centered grow>
             <v-tab :to="{ name: 'home' }">
-              <v-img
+              <img
                 style="height: 100%; width: 36px"
                 src="src/assets/images/louvor-ja.svg"
-              ></v-img>
+              />
               <span class="ml-4 d-none d-sm-inline-block">Louvor JA</span>
             </v-tab>
             <v-tab :to="{ name: 'liturgy' }" ripple exact>
@@ -118,11 +118,18 @@
 </template>
 
 <script setup>
+import { useRouter, useRoute } from "vue-router";
+
 import { main as mainStore } from "@/store/index";
 import { useTheme } from "vuetify";
 import { strings } from "@louvorja/shared";
-import { theme as themeMod } from "@louvorja/shared";
-import { computed, ref, watch } from "vue";
+import { theme as themeMod, CONFIG } from "@louvorja/shared";
+import { computed, ref, watch, onMounted } from "vue";
+
+const router = useRouter();
+onMounted(() => router.push({ name: CONFIG.app.startPage }));
+
+window.document.title = CONFIG.app.name;
 
 const drawerRight = ref(null);
 const aspectRatio = ref("16/9");

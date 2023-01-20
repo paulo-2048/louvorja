@@ -1,5 +1,5 @@
-import { basename, MetaModule } from "./_modules.js";
-import { ThemeDefinition } from "./_vuetify.js";
+import { basename, MetaModule } from "./modules.js";
+import { ThemeDefinition } from "./vuetify.js";
 
 /**
  * Represents dark theme.

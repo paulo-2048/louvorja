@@ -1,6 +1,6 @@
 import { Event } from "./Event.js";
 import { Handler } from "./Handler.js";
-import { createLogger, STDOUT } from "../_logging.js";
+import { createLogger, STDOUT } from "../logging.js";
 
 const LOGGER = createLogger(STDOUT);
 

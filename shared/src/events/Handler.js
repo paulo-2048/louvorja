@@ -1,4 +1,4 @@
-import { createLogger, STDOUT } from "../_logging.js";
+import { createLogger, STDOUT } from "../logging.js";
 
 const LOGGER = createLogger(STDOUT);
 
