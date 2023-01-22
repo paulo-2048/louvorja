@@ -13,6 +13,7 @@
     "clean": "yarn clean:only && yarn",
     "clean:only": "lerna run clean && lerna clean --yes",
     "build": "lerna run build --ignore @louvorja/app-*",
+    "demo": "yarn clean && lerna run demo",
     "test": "lerna run test",
     "app": "yarn workspace @louvorja/app",
     "server": "yarn workspace @louvorja/server",

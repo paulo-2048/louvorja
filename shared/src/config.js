@@ -18,7 +18,7 @@ export class AppConfig {
    * App start page
    * @type {string} home, liturgy or tools.
    */
-  startPage = "liturgy";
+  startPage = "home";
 }
 
 /**

@@ -12,7 +12,7 @@
             <v-tab :to="{ name: 'home' }">
               <img
                 style="height: 100%; width: 36px"
-                src="src/assets/images/louvor-ja.svg"
+                src="@/assets/images/louvor-ja.svg"
               />
               <span class="ml-4 d-none d-sm-inline-block">Louvor JA</span>
             </v-tab>
