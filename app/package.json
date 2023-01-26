@@ -7,10 +7,10 @@
     "scripts": {
       "clean": "rimraf dist",
       "dev": "vite",
-      "build": "vite build && cp index-parent.html ../index.html",
+      "build": "vite build",
       "build:dist": "vite build",
       "preview": "vite preview",
-      "demo": "git diff --quiet && yarn clean && git rev-parse --short HEAD > version.hash && cp ../README.md ../README_new.md && yarn build && mv ../index.html ../index_new.html && git checkout demo-next && mv ../README_new.md ../README.md && mv ../index_new.html ../index.html && git add --force dist ../index.html ../README.md && ( git diff --quiet || git commit -F version.hash ) && git push giflw && rm version.hash && git checkout develop-next && git reset --hard",
+      "demo": "git clean .. -f && rimraf dist_new && git diff --quiet && yarn clean && git rev-parse --short HEAD > version.hash && cp ../README.md ../README_new.md && cp index-parent.html ../index_new.html && yarn build && mv dist dist_new && git checkout demo-next && rimraf dist && mv dist_new dist && mv ../README_new.md ../README.md && mv ../index_new.html ../index.html && git add --force dist ../index.html ../README.md && git commit -F version.hash && git push giflw && rm version.hash && git clean .. -f && git reset --hard && git checkout develop-next",
       "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
     },
     "dependencies": {
