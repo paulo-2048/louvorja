@@ -63,40 +63,7 @@
           <v-icon>mdi-monitor-eye</v-icon>
         </v-btn>
       </v-app-bar>
-      <v-navigation-drawer location="right" v-model="drawerRight" permanent>
-        <div>
-          <v-btn
-            width="33.33333%"
-            @click="aspectRatio = '4/3'"
-            :variant="aspectRatio === '4/3' ? 'tonal' : 'text'"
-          >
-            4/3
-          </v-btn>
-          <v-btn
-            width="33.33333%"
-            @click="aspectRatio = '16/9'"
-            :variant="aspectRatio === '16/9' ? 'tonal' : 'text'"
-          >
-            16/9
-          </v-btn>
-          <v-btn
-            width="33.33333%"
-            @click="aspectRatio = '1/1'"
-            :variant="
-              aspectRatio !== '16/9' && aspectRatio !== '4/3' ? 'tonal' : 'text'
-            "
-          >
-            Screen
-            <v-tooltip activator="parent" location="left">
-              Should use projection screen aspect ratio
-            </v-tooltip>
-          </v-btn>
-        </div>
-
-        <div class="preview" :style="{ aspectRatio: aspectRatio }">
-          <iframe :src="`${projectionUrl}?mode=preview`"> </iframe>
-        </div>
-      </v-navigation-drawer>
+      <drawer-right v-model.isOpen="drawerRight"></drawer-right>
       <v-main scrollable>
         <v-container fluid>
           <router-view v-slot="{ Component, route }">
@@ -119,6 +86,7 @@
 
 <script setup>
 import { useRouter, useRoute } from "vue-router";
+import { open as openProjection } from "@/composables/projection";
 
 import { main as mainStore } from "@/store/index";
 import { useTheme } from "vuetify";
@@ -126,13 +94,13 @@ import { strings } from "@louvorja/shared";
 import { theme as themeMod, CONFIG } from "@louvorja/shared";
 import { computed, ref, watch, onMounted } from "vue";
 
+import DrawerRight from "./components/control/DrawerRight.vue";
+const drawerRight = ref(null);
+
 const router = useRouter();
 onMounted(() => router.push({ name: CONFIG.app.startPage }));
 
 window.document.title = CONFIG.app.name;
-
-const drawerRight = ref(null);
-const aspectRatio = ref("16/9");
 
 const { defaultTheme, isDarkMode, NamedThemeDefinition } = themeMod;
 
@@ -165,13 +133,6 @@ const toggleTheme = (newTheme) => {
   }
 };
 
-const projectionUrl = `${
-  window.location.origin
-}${window.location.pathname.replace("/control", "/projection")}`;
-const openProjection = () => {
-  window.open(`${projectionUrl}?mode=projection`, "projection");
-};
-
 store.ui.theme = theme.global.name.value;
 const selectedTheme = ref(store.ui.theme);
 watch(selectedTheme, (n, o) => toggleTheme(n));
@@ -189,20 +150,3 @@ window.matchMedia("(prefers-color-scheme: dark)").addListener(() => {
   toggleTheme(defaultTheme());
 });
 </script>
-
-<style scoped lang="scss">
-.preview {
-  background: yellow;
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-
-  & > iframe {
-    border: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-}
-</style>
