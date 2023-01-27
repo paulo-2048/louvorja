@@ -40,4 +40,6 @@
 
 <script setup>
 import ThemeSwitcher from "./ThemeSwitcher.vue";
+import { open as openProjection } from "@/composables/projection";
+
 </script>

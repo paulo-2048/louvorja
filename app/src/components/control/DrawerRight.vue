@@ -70,7 +70,7 @@ const previewUrl = url("preview");
     background-repeat: no-repeat;
     background-position: right;
     background-size: cover;
-    opacity: 0.05;
+    opacity: 0.1;
   }
 }
 
@@ -85,7 +85,7 @@ const previewUrl = url("preview");
 
   & > span {
     font-family: monospace;
-    color: black;
+    color: rgba(var(--v-theme-primary));
     font-weight: bold;
 
     margin: 0;
@@ -97,11 +97,12 @@ const previewUrl = url("preview");
     transform: translate(-50%, -50%);
 
     z-index: 800;
+    opacity: 0.3;
   }
 
   & > iframe {
     z-index: 900;
-    opacity: 0.8;
+    opacity: 0.75;
     border: none;
     padding: 0;
     margin: 0;
@@ -111,7 +112,6 @@ const previewUrl = url("preview");
 }
 
 .preview-url {
-  /*font-family: "DIN Pro";*/
   white-space: nowrap;
   text-align: center;
   direction: rtl;

@@ -32,7 +32,6 @@
 import { CONFIG } from "@louvorja/shared";
 
 import { useRouter, useRoute } from "vue-router";
-import { open as openProjection } from "@/composables/projection";
 
 import { computed, ref, watch, onMounted } from "vue";
 
@@ -65,7 +64,7 @@ window.document.title = CONFIG.app.name;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    opacity: 0.05;
+    opacity: 0.1;
   }
 }
 </style>
