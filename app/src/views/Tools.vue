@@ -3,18 +3,12 @@
     <v-btn @click="add()">add</v-btn>
     <v-btn @click="rm()">rm</v-btn>
     <v-btn @click="clear()">clear</v-btn>
-
-    <!-- <ico src="louvorja" size="100" /> -->
-    <div
-      v-if="debug"
-      class="white flex-grow-1 fill-height"
-      style="overflow: auto"
-    >
-    </div>
   </div>
 </template>
 
 <script setup>
+const debug = true;
+
 import { Dispatcher, Event } from "@louvorja/shared";
 /*
  *  DISPACTHER

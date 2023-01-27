@@ -70,7 +70,7 @@ const previewUrl = url("preview");
     background-repeat: no-repeat;
     background-position: right;
     background-size: cover;
-    opacity: 0.1;
+    opacity: 0.05;
   }
 }
 
