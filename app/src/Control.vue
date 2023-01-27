@@ -1,10 +1,10 @@
 <template>
   <v-app full-height>
     <v-layout full-height>
-      <v-system-bar
-        >system status: is WEb? is Desktop? server websocket status? projection
-        activated?</v-system-bar
-      >
+      <v-system-bar>
+        <!-- system status: is WEb? is Desktop? server websocket status? projection activated? -->
+        <span class="bg-info px-1">{{ hostname }}:{{ port }}{{path}}</span>
+      </v-system-bar>
 
       <v-app-bar density="compact" ref="app-bar">
         <template v-slot:title>
@@ -42,6 +42,7 @@
           >
             <template v-slot:activator="{ props }">
               <v-btn :icon="themeIcon" v-bind="props"> </v-btn>
+              <v-tooltip activator="parent">Theme toggle</v-tooltip>
             </template>
 
             <v-list density="compact">
@@ -57,10 +58,12 @@
 
         <v-btn icon @click.stop="openProjection()">
           <v-icon>mdi-monitor-screenshot</v-icon>
+          <v-tooltip activator="parent">Open projection in new tab</v-tooltip>
         </v-btn>
 
         <v-btn icon @click.stop="drawerRight = !drawerRight">
           <v-icon>mdi-monitor-eye</v-icon>
+          <v-tooltip activator="parent">Show/hide drawer preview</v-tooltip>
         </v-btn>
       </v-app-bar>
       <drawer-right v-model.isOpen="drawerRight"></drawer-right>
@@ -101,6 +104,9 @@ const router = useRouter();
 onMounted(() => router.push({ name: CONFIG.app.startPage }));
 
 window.document.title = CONFIG.app.name;
+
+const { hostname, port } = window.location;
+const path = window.location.pathname.split('control.html')[0]
 
 const { defaultTheme, isDarkMode, NamedThemeDefinition } = themeMod;
 
