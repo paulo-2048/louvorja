@@ -1,48 +1,139 @@
-/**
- * Holds app configuration.
- */
-export class AppConfig {
-  /**
-   * App name.
-   * @type {string}
-   */
-  name = "Louvor JA";
+class TypedProperty {
+  /** @type {string} */
+  #name;
+  /** @type {string} */
+  #type;
+  /** @type {} */
+  #defaultValue;
+  /** @type {string} */
+  #description;
+  /** @type {} */
+  #value;
 
-  /**
-   * App description.
-   * @type {string}
-   */
-  description = "Coletânea e Utilidades Louvor JA";
+  constructor(name, type, defaultValue, description) {
+    this.#name = name;
+    this.#type = type;
+    this.#defaultValue = defaultValue;
+    this.#description = description;
+    this.value = defaultValue;
+  }
 
-  /**
-   * App start page
-   * @type {string} home, liturgy or tools.
-   */
-  startPage = "home";
+  get name() {
+    return this.#name;
+  }
+
+  get type() {
+    return this.#type;
+  }
+
+  get defaultValue() {
+    return this.#defaultValue;
+  }
+
+  get description() {
+    return this.#description;
+  }
+
+  get value() {
+    return this.#value;
+  }
+
+  set value(value) {
+    this.isTypeCorrect(value);
+    this.#value = value;
+  }
+
+  reset() {
+    this.#value = this.#defaultValue;
+  }
+
+  toJSON() {
+    return this.#value;
+  }
+
+  toString() {
+    return `${this.#name}: ${this.#value}`;
+  }
+
+  isArrayCorrect() {
+    // if array is expected and value is array
+    if (this.#type.endsWith("[]") && Array.isArray(value)) {
+      // if array empty or elements type match
+      if (
+        value.length == 0 ||
+        typeof value[0] === this.#type.substring(0, this.#type.length - 2)
+      ) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  isTypeCorrect(value) {
+    // FIXME needs support for object (maybe comparing keys??)
+    const isCorrect = typeof value === this.#type || this.isArrayCorrect();
+    if (!isCorrect) {
+      throw new Error(
+        `Wrong type: expected ${this.#type}, received ${typeof value}${
+          Array.isArray(value) ? "[]" : ""
+        }`
+      );
+    }
+    return isCorrect;
+  }
 }
 
-/**
- * Holds server configuration.
- */
-export class ServerConfig {
-  /**
-   * Server port. Use 0 (zero) for random.
-   * @type {number}.
-   */
-  port = 5174;
-  /**
-   * Address to bind to. "0.0.0.0" to all interfaces, "127.0.0.1" to localhost.
-   * @type {string}
-   */
-  bind = "0.0.0.0";
-  /**
-   * Enable server debug/logger.
-   * @type {boolean}
-   */
-  debug = true;
+class PropertyGroup {
+  _name;
+  _description;
+  _properties = {};
+  static #isInternalConstructing = false;
 
-  constructor(port) {
-    this.port = port;
+  constructor(name, description) {
+    if (!PropertyGroup.#isInternalConstructing) {
+      throw new TypeError("PropertyGroup is not constructable");
+    }
+    this._name = name;
+    this._description = description;
+  }
+
+  static #create(name, description) {
+    PropertyGroup.#isInternalConstructing = true;
+    const instance = new PropertyGroup(name, description);
+    PropertyGroup.#isInternalConstructing = false;
+    return instance;
+  }
+
+  static of(name, description, ...properties) {
+    const group = PropertyGroup.#create(name, description);
+    for (const property of properties) {
+      group.add(property);
+    }
+    return group.proxied();
+  }
+
+  add(property) {
+    this._properties[property.name] = property;
+    return this;
+  }
+
+  has(target, key) {
+    if (key[0] === "_") {
+      return key in target;
+    }
+    return key in target._properties;
+  }
+
+  get(target, key, receiver) {
+    return target._properties[key].value;
+  }
+
+  set(target, key, value) {
+    return (target._properties[key].value = value);
+  }
+
+  proxied() {
+    return new Proxy(this, this);
   }
 }
 
@@ -50,19 +141,43 @@ export class ServerConfig {
  * Holds all aplication configuration.
  */
 export class Config {
-  /**
-   * @type {AppConfig}
-   */
-  app;
+  app = PropertyGroup.of(
+    "Application",
+    "Application related configurations",
+    new TypedProperty("name", "string", "Louvor JA", "Application name"),
+    new TypedProperty(
+      "description",
+      "string",
+      "Coletânea e Utilidades Louvor JA",
+      "Application description"
+    ),
+    new TypedProperty(
+      "startPage",
+      "string",
+      "home",
+      "Application start page. Default 'home'. Can be either home, liturgy or tools"
+    )
+  );
   /**
    * @type {ServerConfig}
    */
-  server;
-
-  constructor() {
-    this.app = new AppConfig();
-    this.server = new ServerConfig(5174);
-  }
+  server = PropertyGroup.of(
+    "Server",
+    "Server related configurations",
+    new TypedProperty(
+      "port",
+      "number",
+      5174,
+      "Server port. Use 0 (zero) for random."
+    ),
+    new TypedProperty(
+      "bind",
+      "string",
+      "0.0.0.0",
+      "Address to bind to. '0.0.0.0' to all interfaces, '127.0.0.1' to localhost."
+    ),
+    new TypedProperty("debug", "boolean", true, "Enable server debug/logger.")
+  );
 
   /**
    * @returns {Config}.
