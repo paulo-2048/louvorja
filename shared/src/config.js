@@ -125,11 +125,35 @@ class PropertyGroup {
   }
 
   get(target, key, receiver) {
-    return target._properties[key].value;
+    if (key[0] === "_") {
+      return target[key];
+    }
+    if (key in target._properties) {
+      return target._properties[key].value;
+    }
+    return target[key];
   }
 
   set(target, key, value) {
-    return (target._properties[key].value = value);
+    if (key[0] === "_") {
+      throw new Error(`Cannot set value for ${key}`);
+    }
+    if (key in target._properties) {
+      target._properties[key].value = value;
+    }
+    target[key] = value;
+  }
+
+  ownKeys() {
+    return Object.keys(this._properties);
+  }
+
+  getOwnPropertyDescriptor(target, key) {
+    return {
+      enumerable: true,
+      configurable: true,
+      value: this._properties[key].value,
+    };
   }
 
   proxied() {
@@ -141,7 +165,7 @@ class PropertyGroup {
  * Holds all aplication configuration.
  */
 export class Config {
-  app = PropertyGroup.of(
+  application = PropertyGroup.of(
     "Application",
     "Application related configurations",
     new TypedProperty("name", "string", "Louvor JA", "Application name"),

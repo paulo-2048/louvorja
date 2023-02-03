@@ -29,6 +29,37 @@
           <v-tooltip activator="parent">Open preview in new tab</v-tooltip>
         </v-btn>
       </div>
+
+      <div>
+        <v-list density="compact">
+          <v-list-subheader>Configuration</v-list-subheader>
+
+          <template v-for="(group, key) in CONFIG">
+            <v-list-group
+              value="Actions"
+              :prepend-icon="'mdi-' + key"
+              :title="group._name"
+            >
+              <template v-slot:activator="{ props }">
+                <v-list-item v-bind="props" :title="group._name">
+                  <v-tooltip activator="parent">
+                    {{ group._description }}
+                  </v-tooltip>
+                </v-list-item>
+              </template>
+
+              <v-list-item v-for="(prop, i) in group._properties">
+                <v-list-item-title>
+                  {{ prop.name }}: {{ prop.value }}
+                  <v-tooltip activator="parent">{{
+                    prop.description
+                  }}</v-tooltip>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list-group>
+          </template>
+        </v-list>
+      </div>
     </div>
   </v-navigation-drawer>
 </template>
@@ -37,6 +68,7 @@
 import { computed, reactive, ref } from "vue";
 import useModelWrapper from "@/composables/modelWrapper";
 import useProjection from "@/composables/projection";
+import { CONFIG } from "@louvorja/shared";
 
 // isOpen (open/close)
 const props = defineProps({

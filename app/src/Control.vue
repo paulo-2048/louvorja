@@ -42,9 +42,9 @@ import DrawerRight from "./components/control/DrawerRight.vue";
 const drawerRight = ref(null);
 
 const router = useRouter();
-onMounted(() => router.push({ name: CONFIG.app.startPage }));
+onMounted(() => router.push({ name: CONFIG.application.startPage }));
 
-window.document.title = CONFIG.app.name;
+window.document.title = CONFIG.application.name;
 </script>
 <style scoped lang="scss">
 .wrapper-main {
