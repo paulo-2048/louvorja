@@ -9,7 +9,7 @@ export {
   DefaultHandler,
   HandlerLoader,
   DefaultHandlerLoader,
-} from "./events";
+} from "./events/index.js";
 
 export * as logging from "./logging.js";
 export * as modules from "./modules.js";

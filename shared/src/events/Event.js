@@ -1,5 +1,6 @@
 import { KEY } from "./Dispatcher.js";
 import cuid from "cuid";
+import { CustomEvent } from "./CustomEvent.js";
 
 export class Event extends CustomEvent {
   static create(target, command, args) {
