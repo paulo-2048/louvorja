@@ -19,6 +19,8 @@ export class ReconnectingWebSockect extends EventTarget {
     error: [],
   };
 
+  keepConnected = true;
+
   constructor(url, protocols = []) {
     super();
     this.#url = url;
@@ -70,8 +72,15 @@ export class ReconnectingWebSockect extends EventTarget {
     }
   }
 
-  close(code) {
-    this.#ws.close(code);
+  close(codeOrReopen, reason) {
+    // do not reopen when explicitly closed and not aked to reopen
+    if (typeof codeOrReopen === "boolean") {
+      this.keepConnected = codeOrReopen;
+      this.#ws.close();
+    } else {
+      this.keepConnected = false;
+      this.#ws.close(codeOrReopen, reason);
+    }
   }
 
   addEventListener(type, listener, options = {}) {
@@ -115,17 +124,20 @@ export class ReconnectingWebSockect extends EventTarget {
         logger.warn("WebSocket opened: " + JSON.stringify(event));
         resolve();
       };
-      this.#ws.onmessage = function (event) {
+      this.#ws.onmessage = (event) => {
         logger.trace(JSON.stringify(JSON.parse(event.data)));
       };
-      this.#ws.onerror = function (event) {
+      this.#ws.onerror = (event) => {
         logger.error("WebSocket error: " + JSON.stringify(event));
         if (this.#ws.readyState < OPEN) {
           reject();
         }
       };
-      this.#ws.onclose = function (event) {
+      this.#ws.onclose = (event) => {
         logger.warn("WebSocket closed: " + JSON.stringify(event));
+        if (this.keepConnected) {
+          this.#open();
+        }
       };
     });
     await promise;
