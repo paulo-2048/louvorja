@@ -200,7 +200,12 @@ export class Config {
       "0.0.0.0",
       "Address to bind to. '0.0.0.0' to all interfaces, '127.0.0.1' to localhost."
     ),
-    new TypedProperty("debug", "boolean", true, "Enable server debug/logger.")
+    new TypedProperty(
+      "logLevel",
+      "string",
+      "trace",
+      "Set server log level (trace, debug, info, warn, error, fatal, silent)."
+    )
   );
 
   /**

@@ -2,27 +2,36 @@ import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
 
-import { Config } from "@louvorja/shared";
-const config = Config.load();
+import { CONFIG, logging } from "@louvorja/shared";
+// FIXME add file path as first parameter
+const logger = logging.createLogger();
+logger.level = CONFIG.server.logLevel;
 
 import Fastify from "fastify";
+import websocket from "@fastify/websocket";
+
 import { modules, prefix } from "@louvorja/shared";
 const server = Fastify({
-  logger: config.server.debug,
+  logger: {
+    level: CONFIG.server.logLevel,
+    transport: logging.PINO_PRETTY_TARGET,
+  },
 });
+
+server.register(websocket);
 
 /***************************
  * ROUTES
  */
 server.addHook("onRoute", (route) => {
-  console.log(`Route ${route.method} ${route.routePath}`);
+  server.log.trace(`Route ${route.method} ${route.routePath}`);
 });
 
 const routesDirectory = path.join(modules.parent(import.meta), "routes");
-console.log(`Searching routes on ${routesDirectory}`);
+server.log.trace(`Searching routes on ${routesDirectory}`);
 const routeModules = fs.readdirSync(routesDirectory);
 for (const file of routeModules) {
-  console.log(`Installing routes from ${file}`);
+  server.log.trace(`Installing routes from ${file}`);
   const moduleUrl = url.pathToFileURL(path.join(routesDirectory, file));
   const routes = await import(moduleUrl);
   const applyPrefix = prefix.prefixRoute(
@@ -38,11 +47,11 @@ for (const file of routeModules) {
 export async function start() {
   await server
     .listen({
-      port: config.server.port || 0,
-      host: config.server.host || "0.0.0.0",
+      port: CONFIG.server.port,
+      host: CONFIG.server.bind,
     })
     .then((address) => {
-      console.log(`Server running on ${address}`);
+      server.log.warn(`Server running on ${address}`);
     })
     .catch((err) => {
       server.log.error(err);
