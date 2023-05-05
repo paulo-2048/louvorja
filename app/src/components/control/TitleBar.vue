@@ -3,7 +3,6 @@
     v-if="louvorJA?.application"
     density="comfortable"
     ref="title-bar"
-    :icon="logo"
     :elevation="4"
   >
     <template v-slot:prepend>
