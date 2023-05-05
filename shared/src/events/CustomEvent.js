@@ -1,8 +1,12 @@
+import { CONFIG } from '../config.js';
+
 let customEvent;
 
 // if not exists CustomEvent, polyfill it
 if (typeof customEvent !== "function") {
   class CustomEvent extends Event {
+
+    /** @type {Object} */
     #detail;
 
     constructor(type, options) {
@@ -13,6 +17,12 @@ if (typeof customEvent !== "function") {
     get detail() {
       return this.#detail;
     }
+
+    /** @type {string} */
+    static get appID() {
+        return CONFIG.application.id;
+    }
+
   }
   customEvent = CustomEvent;
 } else {

@@ -1,12 +1,11 @@
 import { Event } from "./Event.js";
 import { Handler } from "./Handler.js";
 import { createLogger, STDOUT } from "../logging.js";
+import { CONFIG } from '../config.js';
 
 const LOGGER = createLogger(STDOUT);
 
-export const KEY = "louvorja:projection:event";
-export const KEY_CONTROL = "louvorja:mode:control";
-export const KEY_PROJECTION = "louvorja:mode:projection";
+export const EVENT_TYPE = "louvorja:event";
 
 export class Dispatcher {
   handlers;
@@ -36,8 +35,8 @@ export class Dispatcher {
     const json = JSON.stringify(event.detail);
     LOGGER.debug(event, json);
     // for other tabs or iframess
-    window.localStorage.removeItem(KEY);
-    window.localStorage.setItem(KEY, json);
+    window.localStorage.removeItem(EVENT_TYPE);
+    window.localStorage.setItem(EVENT_TYPE, json);
     // for same tab (no iframes)
     window.dispatchEvent(event);
   }
@@ -60,20 +59,22 @@ export class Dispatcher {
 
   /** @param {Event} event */
   receive = async (event) => {
-    LOGGER.debug(`Event ${KEY}: ${event}`);
-    this.process(Event.of(event));
+    if (event.type === EVENT_TYPE) {
+        LOGGER.debug(`Event ${EVENT_TYPE}: ${event}`);
+        this.process(Event.of(event));
+    }
   };
 
   receiveStorageEvent = (event) => {
-    LOGGER.debug(`Event (storage) ${KEY}: ${event.newValue}`);
-    if (event.key === KEY && event.newValue) {
+    LOGGER.debug(`Event (storage) ${EVENT_TYPE}: ${event.newValue}`);
+    if (event.key === EVENT_TYPE && event.newValue) {
       this.receive(JSON.parse(event.newValue));
     }
   };
 
   register() {
     // try connect with websocket, if fail use events in browser
-    window.addEventListener(KEY, this.receive, { capture: true });
+    window.addEventListener(EVENT_TYPE, this.receive, { capture: true });
     window.addEventListener("storage", this.receiveStorageEvent, {
       capture: true,
     });
@@ -81,10 +82,10 @@ export class Dispatcher {
 
   unregister() {
     // try disconnect with websocket, if fail remove events in browser
-    window.removeEventListener(KEY, this.receive, { capture: true });
+    window.removeEventListener(EVENT_TYPE, this.receive, { capture: true });
     window.removeEventListener("storage", this.receiveStorageEvent, {
       capture: true,
     });
-    window.localStorage.removeItem(KEY);
+    window.localStorage.removeItem(EVENT_TYPE);
   }
 }

@@ -1,42 +1,70 @@
-import { KEY } from "./Dispatcher.js";
+import { EVENT_TYPE } from "./Dispatcher.js";
 import cuid from "cuid";
 import { CustomEvent } from "./CustomEvent.js";
+import { EventParticipant } from "./EventParticipant.js";
 
 export class Event extends CustomEvent {
-  static create(target, command, args) {
+
+  /**
+   * @type source {EventParticipant}
+   * @type target {EventParticipant}
+   * @type command {string}
+   * @type args {Object}
+   */
+  static create(source, target, command, args = {}) {
     const id = `evt_${cuid()}`;
-    return new Event(id, target, command, args);
+    const objectId = `obj_${cuid()}`;
+    return new Event(id, source, target, objectId, command, args);
   }
 
-  static of(eventOrId, target, command, args) {
-    let id = eventOrId.id;
-    if (id) {
-      target = eventOrId.target;
-      command = eventOrId.command;
-      args = eventOrId.args || {};
-    } else {
-      id = eventOrId;
+  static of({detail: {id, source, target, objectId, command, args}}) {
+    return Event.create(id, source, target, objectId, command, args);
+  }
+
+  constructor(id, source, target, objectId, command, args = {}) {
+    if (!source) {
+      throw new Error(`Source is not defined (${source})`);
     }
-    return new Event(id, target, command, args);
-  }
-
-  constructor(id, target, command, args = {}) {
     if (!target) {
-      throw new Error(`Target is not defined (target=${target})`);
+      throw new Error(`Target is not defined (${target})`);
     }
     if (!command) {
-      throw new Error(`Command is not defined (command=${command})`);
+      throw new Error(`Command is not defined (${command})`);
     }
-    super(KEY, {
-      detail: { id, target, command, args },
+    super(EVENT_TYPE, {
+      detail: { id, objectId, source, target, command, args }
     });
   }
 
-  get id() {
+  /**
+   * Event self ID.
+   */
+  get eid() {
     return this.detail.id;
   }
 
-  /** @type {string} */
+  /**
+   * Event Object ID.
+   */
+  get oid() {
+    return this.detail.objectId;
+  }
+
+  /**
+   * Event source using screen destination and component, e.g.:
+   * - control:liturgy;
+   * - projection:top.
+   * @type {string}
+   **/
+  get source() {
+    return this.detail.source;
+  }
+
+  /**
+   * Event target.
+   * @see {@link #source}
+   * @type {string}
+   **/
   get target() {
     return this.detail.target;
   }
