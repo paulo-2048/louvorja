@@ -1,7 +1,11 @@
 <template>
   <v-app full-height>
     <v-layout full-height>
+
+      <title-bar></title-bar>
+
       <system-bar></system-bar>
+
       <app-bar></app-bar>
 
       <drawer-right v-model.isOpen="drawerRight"></drawer-right>
@@ -35,6 +39,7 @@ import { useRouter, useRoute } from "vue-router";
 
 import { computed, ref, watch, onMounted } from "vue";
 
+import TitleBar from "./components/control/TitleBar.vue";
 import SystemBar from "./components/control/SystemBar.vue";
 import AppBar from "./components/control/AppBar.vue";
 import DrawerRight from "./components/control/DrawerRight.vue";

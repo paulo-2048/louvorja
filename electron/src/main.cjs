@@ -1,10 +1,22 @@
-const { app } = require("electron");
+const { app, ipcMain } = require("electron");
+const path = require('node:path');
 
 let logger = null;
 
 import("@louvorja/shared")
   .then(async (shared) => {
-    const { logging } = shared;
+
+    const { quit } = await import('./inc/quit.mjs');
+
+    process.on("SIGINT", () => {
+      quit();
+    });
+
+    ipcMain.handle('quit-app', (event, ...args) => {
+      quit();
+    });
+
+    const { logging, modules } = shared;
     logger = logging.createLogger(logging.STDOUT);
     logger.info("Logger created");
 
@@ -41,31 +53,59 @@ import("@louvorja/shared")
       const system = await import("./inc/system.mjs");
       system.assureSingleInstance();
 
-      const devMode = app.commandLine.hasSwitch("dev-mode");
+    const devMode = app.commandLine.hasSwitch("dev-mode");
+
+    console.log("DEV MODE", devMode)
 
       let serverUrl = devMode
         ? "http://localhost:5174"
         : await import("./inc/server.mjs");
 
       let controlUrl = devMode
-        ? `${serverUrl}/control`
-        : "http://localhost:5175";
+        ?"http://localhost:5175/control.html"
+        : `${serverUrl}/control`;
 
       let projectionUrl = devMode
-        ? `${serverUrl}/projection`
-        : "http://localhost:5176";
+        ? "http://localhost:5175/projection.html"
+        : `${serverUrl}/projection`;
 
       logger.info(`Control URL  ${controlUrl}`);
-      logger.info(`CONTROL: ${CONTROL}`);
-      windows.control = createWindow(CONTROL, {
+      const CONTROL_MAIN = Object.assign(
+        {},
+        CONTROL,
+        {
+          webPreferences: {
+            nodeIntegration: false,
+            contentIsolation: true,
+            preload: path.resolve(__dirname, "preload.mjs")
+          }
+        }
+      );
+      logger.info(`CONTROL: ${CONTROL_MAIN}`);
+      windows.control = createWindow(CONTROL_MAIN, {
         url: controlUrl,
-        maximize: true,
+        maximize: true
       });
 
       const controlReadey = new Promise((resolve, reject) => {
         windows.control.once("ready-to-show", () => {
           logger.info("Control window ready!");
           resolve(true);
+        });
+
+        ipcMain.handle('control-main-minimize', (event, ...args) => {
+          windows.control.minimize();
+        });
+        ipcMain.handle('control-main-maximize', (event, ...args) => {
+          windows.control.maximize();
+          return windows.control.isMaximized();
+        });
+        ipcMain.handle('control-main-unmaximize', (event, ...args) => {
+          windows.control.unmaximize();
+          return !windows.control.isMaximized();
+        });
+        ipcMain.handle('control-main-isMaximized', (event, ...args) => {
+          return windows.control.isMaximized();
         });
       });
 

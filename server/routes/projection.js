@@ -12,9 +12,6 @@ export async function install(router, applyPrefix) {
       prefix: applyPrefix("/"),
     });
   } else {
-    router.register(await import("@fastify/http-proxy"), {
-      prefix: applyPrefix("/"),
-      upstream: "http://localhost:5176",
-    });
+    router.log.error('Projection static directory not found!');
   }
 }

@@ -168,6 +168,7 @@ export class Config {
   application = PropertyGroup.of(
     "Application",
     "Application related configurations",
+    new TypedProperty("debug", "boolean", process.env.NODE_ENV === 'development' || !process.env.NODE_ENV, "Enable debug mode"),
     new TypedProperty("name", "string", "Louvor JA", "Application name"),
     new TypedProperty(
       "description",

@@ -1,7 +1,8 @@
 import path from "node:path";
 import fs from "node:fs";
-import { modules } from "@louvorja/shared";
+import { CONFIG } from "@louvorja/shared";
+import { info } from "node:console";
 
 export async function install(router, applyPrefix) {
-  router.get("/", (req, reply) => reply.send("Hi"));
+  router.get("/", (req, reply) => reply.send(CONFIG.application.name));
 }

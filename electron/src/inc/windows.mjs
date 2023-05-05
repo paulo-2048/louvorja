@@ -1,8 +1,19 @@
-import { BrowserWindow } from "electron";
+import { BrowserWindow, dialog } from "electron";
+import { CONFIG, modules } from "@louvorja/shared";
+import { quitting } from './quit.mjs';
+
+import path from 'node:path';
+import { log } from "node:console";
 
 export function toString() {
   return "module @louvorja/electron/inc/windows";
 }
+
+const LJA_WINDOW_SPLASH = 'SPLASH';
+const LJA_WINDOW_CONTROL = 'CONTROL';
+const LJA_WINDOW_PROJECTION = 'PROJECTION';
+
+export const ICON_PATH = path.join(modules.parent(import.meta), "../resources/images/louvor-ja.png");
 
 /**
  * Keep application windows references
@@ -67,72 +78,81 @@ export function fadeWindow(browserWindow, mode, doneCallback = null) {
   return intervalHandler;
 }
 
+
+const BASE_WINDOW_OPTIONS = {
+  ljaWindowType: null,
+  icon: ICON_PATH,
+  title: '',
+  autoHideMenuBar: true,
+  titleBarStyle: 'hidden',
+  transparent: false,
+
+  useContentSize: true,
+
+  frame: false,
+  show: false,
+  alwaysOnTop: false,
+
+  focusable: true,
+  closable: false,
+  minimizable: true,
+  maximizable: true,
+  resizable: true,
+  fullscreenable: true,
+
+  webPreferences: {
+    nodeIntegration: false,
+    contentIsolation: true
+  },
+
+  toString: function () {
+    return JSON.stringify(this);
+  },
+}
+
 /**
  * @type {BrowserWindowConstructorOptions}
  */
-export const SPLASH = {
+export const SPLASH = Object.assign({}, BASE_WINDOW_OPTIONS, {
+  ljaWindowType: LJA_WINDOW_SPLASH,
+  title: 'Splash',
   width: 300,
   height: 300,
   transparent: true,
   alwaysOnTop: true,
-  autoHideMenuBar: true,
-  useContentSize: true,
-  resizable: true,
-  frame: false,
-  show: false,
   transparent: true,
   focusable: true,
-  closable: true,
   minimizable: false,
   maximizable: false,
   resizable: false,
-  fullscreenable: false,
-  toString: function () {
-    return JSON.stringify(this);
-  },
-};
+  fullscreenable: false
+});
 
 /**
  * @type {BrowserWindowConstructorOptions}
  */
-export const CONTROL = {
+export const CONTROL = Object.assign({}, BASE_WINDOW_OPTIONS, {
+  ljaWindowType: LJA_WINDOW_CONTROL,
+  title: 'Control',
   width: 800,
   height: 600,
-  show: false,
-  autoHideMenuBar: true,
-  useContentSize: true,
-  resizable: true,
-  closable: false,
-  // webPreferences: {
-  //   preload: path.join(__dirname, "./preload.js"),
-  // },
-  toString: function () {
-    return JSON.stringify(this);
-  },
-};
+  resizable: true
+});
 
 /**
  * @type {BrowserWindowConstructorOptions}
  */
-export const PROJECTION = {
+export const PROJECTION = Object.assign({}, BASE_WINDOW_OPTIONS, {
+  ljaWindowType: LJA_WINDOW_PROJECTION,
+  title: 'Projection',
   width: 800,
   height: 600,
-  show: false,
   transparent: true,
-  autoHideMenuBar: true,
-  useContentSize: true,
   resizable: false,
   minimizable: false,
   closable: false,
-  fullscreenable: true,
-  frame: false,
-  // webPreferences: {
-  //   preload: path.join(__dirname, "./preload.js"),
-  // },
-  toString: function () {
-    return JSON.stringify(this);
-  },
-};
+  fullscreenable: true
+});
 
 export class WindowInitialOptions {
   /**
@@ -171,9 +191,30 @@ export class WindowInitialOptions {
  * @returns {BrowserWindow}
  */
 export function createWindow(windowOptions, initialOptions = {}) {
+  windowOptions.title = CONFIG.application.name + (windowOptions.title ? ' - ' + windowOptions.title : '');
+
   initialOptions = new WindowInitialOptions(initialOptions);
 
   const browserWindow = new BrowserWindow(windowOptions);
+
+  if (CONFIG.application.debug && windowOptions.ljaWindowType === LJA_WINDOW_CONTROL) {
+    browserWindow.webContents.openDevTools();
+  }
+
+  if (!windowOptions.closable) {
+    browserWindow.on('close', (event) => {
+      if (!quitting()) {
+        // dialog.showMessageBoxSync({
+        //   browserWindow,
+        //   type: 'info',
+        //   title: `How to close ${CONFIG.application.name}?`,
+        //   message: 'Use quit from tray or Application menu',
+        //   buttons: ['OK']
+        // });
+        event.preventDefault();
+      }
+    });
+  }
 
   browserWindow.setOpacity(initialOptions.opacity);
 
