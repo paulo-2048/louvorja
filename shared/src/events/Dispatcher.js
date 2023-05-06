@@ -20,11 +20,7 @@ export class Dispatcher {
     this.options = new URL(document.location).searchParams;
     this.mode = this.options.get("mode") || 'control';
     this.handlers = handlers;
-    LOGGER.warn(
-      `Mode: ${this.mode} with handlers ${Object.keys(this.handlers).join(
-        ", "
-      )}`
-    );
+    LOGGER.warn(`Mode: ${this.mode} with handlers ${this.handlers}`);
     if (!handlers) {
       LOGGER.warn('No handlers provided!');
     }
