@@ -26,6 +26,8 @@
 
       <h1 class="text-h4 pa-10">Louvor JA</h1>
       <p class="text-h6">Bem vindo!</p>
+
+      <v-btn href="http://app.louvorja.com.br" target="_new">App WEB</v-btn>
     </div>
 
     <v-card variant="tonal" class="v-col-auto d-none d-sm-block">

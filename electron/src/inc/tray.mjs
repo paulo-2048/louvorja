@@ -1,6 +1,6 @@
 import { app, BrowserWindow, Menu, Tray } from "electron";
 import { modules, CONFIG } from "@louvorja/shared";
-import { Windows, toogleWindowVisibility, ICON_PATH } from "./windows.mjs";
+import { Windows, toggleWindowVisibility, ICON_PATH } from "./windows.mjs";
 import { quit } from './quit.mjs';
 import path from "node:path";
 
@@ -22,14 +22,14 @@ export function createTray(windows) {
       label: "Show/Hide Control Window",
       type: "normal",
       click: (menuItem, browserWindow, event) => {
-        toogleWindowVisibility(windows.control);
+        toggleWindowVisibility(windows.control);
       },
     },
     {
       label: "Show/Hide Projection Window",
       type: "normal",
       click: (menuItem, browserWindow, event) => {
-        toogleWindowVisibility(windows.projection);
+        toggleWindowVisibility(windows.projection);
       },
     },
     {

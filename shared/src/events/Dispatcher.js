@@ -8,6 +8,7 @@ const LOGGER = createLogger(STDOUT);
 export const EVENT_TYPE = "louvorja:event";
 
 export class Dispatcher {
+  option;
   handlers;
   mode;
 
@@ -15,18 +16,17 @@ export class Dispatcher {
    *
    * @param {Handler[]}
    */
-  constructor(handlers = null) {
-    // use first path segment as mode
-    this.mode = window.location.pathname.split("/").filter((el) => !!el)[0];
-    this.handlers = handlers || {};
+  constructor(handlers) {
+    this.options = new URL(document.location).searchParams;
+    this.mode = this.options.get("mode") || 'control';
+    this.handlers = handlers;
     LOGGER.warn(
       `Mode: ${this.mode} with handlers ${Object.keys(this.handlers).join(
         ", "
       )}`
     );
-    Object.values(this.handlers).forEach((h) => (h.autoplay = this.autoplay));
-    if (this.mode !== "control" && !handlers) {
-      LOGGER.error(`None handlers provided!`);
+    if (!handlers) {
+      LOGGER.warn('No handlers provided!');
     }
   }
 
@@ -43,7 +43,7 @@ export class Dispatcher {
 
   /** @param {Event} event */
   process = async (event) => {
-    const { target, command, args } = event;
+    const { id, objectId, source, target, command, args } = event;
     try {
       LOGGER.debug(this.handlers[target]);
       this.handlers[target][command](event);

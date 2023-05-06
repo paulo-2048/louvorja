@@ -148,8 +148,8 @@ export const PROJECTION = Object.assign({}, BASE_WINDOW_OPTIONS, {
   width: 800,
   height: 600,
   transparent: true,
-  resizable: false,
-  minimizable: false,
+  resizable: true,
+  minimizable: true,
   closable: false,
   fullscreenable: true
 });
@@ -204,19 +204,10 @@ export function createWindow(windowOptions, initialOptions = {}) {
   if (!windowOptions.closable) {
     browserWindow.on('close', (event) => {
       if (!quitting()) {
-        // dialog.showMessageBoxSync({
-        //   browserWindow,
-        //   type: 'info',
-        //   title: `How to close ${CONFIG.application.name}?`,
-        //   message: 'Use quit from tray or Application menu',
-        //   buttons: ['OK']
-        // });
         event.preventDefault();
       }
     });
   }
-
-  browserWindow.setOpacity(initialOptions.opacity);
 
   if (initialOptions.hasLoad()) {
     if (initialOptions.file) {
@@ -229,6 +220,9 @@ export function createWindow(windowOptions, initialOptions = {}) {
   if (initialOptions.maximize) {
     browserWindow.maximize();
   }
+
+  browserWindow.setOpacity(initialOptions.opacity);
+
   return browserWindow;
 }
 
@@ -237,13 +231,17 @@ export function createWindow(windowOptions, initialOptions = {}) {
  *
  * @param window {BrowserWindow}
  */
-export function toogleWindowVisibility(window) {
-  if (window.isVisible()) {
-    window.minimize();
-    window.hide();
-  } else {
+export function toggleWindowVisibility(window) {
+  setWindowVisibility(window, !window.isVisible());
+}
+
+export function setWindowVisibility(window, visible) {
+  if (visible) {
     window.restore();
     window.show();
+  } else {
+    window.minimize();
+    window.hide();
   }
 }
 

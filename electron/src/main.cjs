@@ -1,4 +1,5 @@
 const { app, ipcMain } = require("electron");
+const { url } = require("node:inspector");
 const path = require('node:path');
 
 let logger = null;
@@ -24,6 +25,7 @@ import("@louvorja/shared")
     const {
       createWindow,
       closeSplashAndShowControl,
+      setWindowVisibility,
       fadeWindow,
       IN,
       Windows,
@@ -87,6 +89,17 @@ import("@louvorja/shared")
         maximize: true
       });
 
+      // https://www.electronjs.org/docs/latest/api/window-open
+      windows.control.webContents.setWindowOpenHandler((event) => {
+        setWindowVisibility(windows.projection, true);
+        windows.projection.loadURL(event.url);
+        //windows.projection.maximize();
+        //windows.projection.setFullScreen(true);
+        return {
+          action: 'deny'
+        };
+      });
+
       const controlReadey = new Promise((resolve, reject) => {
         windows.control.once("ready-to-show", () => {
           logger.info("Control window ready!");
@@ -114,12 +127,13 @@ import("@louvorja/shared")
       windows.projection = createWindow(PROJECTION, {
         url: projectionUrl,
         maximize: true,
-        opacity: 1,
+        opacity: 1
       });
 
       const projectionReady = new Promise((resolve, reject) => {
         windows.projection.once("ready-to-show", () => {
           logger.info("Projection window ready!");
+          setWindowVisibility(windows.projection, false);
           resolve(true);
         });
       });
