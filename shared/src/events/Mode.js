@@ -1,14 +1,14 @@
-export class EventScreen {
+export class Mode {
 
     constructor() {
         throw 'Cannot instantiate';
     }
 
-    static get control() {
+    static get CONTROL() {
         return 'control';
     }
 
-    static get projection() {
+    static get PROJECTION() {
         return 'projection';
     }
 }

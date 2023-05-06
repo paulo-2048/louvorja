@@ -40,6 +40,7 @@ export class Dispatcher {
   /** @param {Event} event */
   process = async (event) => {
     const { id, objectId, source, target, command, args } = event;
+    console.log(event, { id, objectId, source, target, command, args })
     try {
       LOGGER.debug(this.handlers[target]);
       this.handlers[target][command](event);

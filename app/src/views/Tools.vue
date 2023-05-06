@@ -9,15 +9,18 @@
 <script setup>
 const debug = true;
 
-import { Dispatcher, Event } from "@louvorja/shared";
+import { Dispatcher, Event, Participant } from "@louvorja/shared";
 /*
  *  DISPACTHER
  */
 
-const event = Event.create("center", "add", {
+const event = Event.create(
+  Participant.control("tools", "demo"),
+  Participant.projection("layers", "center"),
+  "add", {
   template: "<h1 data-id='title' style='font-size: 10vh'>Louvor JA</h1>",
   animate: {
-    cssClass: "animate__animated animate__fadeIn animate__faster",
+      cssClass: "animate__animated animate__fadeIn animate__faster",
   },
 });
 

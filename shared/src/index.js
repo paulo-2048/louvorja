@@ -9,6 +9,7 @@ export {
   DefaultHandler,
   HandlerLoader,
   DefaultHandlerLoader,
+  Participant
 } from "./events/index.js";
 
 export * as logging from "./logging.js";

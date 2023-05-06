@@ -1,13 +1,13 @@
 import { EVENT_TYPE } from "./Dispatcher.js";
 import cuid from "cuid";
 import { CustomEvent } from "./CustomEvent.js";
-import { EventParticipant } from "./EventParticipant.js";
+import { Participant } from "./Participant.js";
 
 export class Event extends CustomEvent {
 
   /**
-   * @type source {EventParticipant}
-   * @type target {EventParticipant}
+   * @type source {Participant}
+   * @type target {Participant}
    * @type command {string}
    * @type args {Object}
    */
@@ -18,7 +18,14 @@ export class Event extends CustomEvent {
   }
 
   static of({detail: {id, source, target, objectId, command, args}}) {
-    return Event.create(id, source, target, objectId, command, args);
+    return Event.create(
+      id,
+      Participant.of(source),
+      Participant.of(target),
+      objectId,
+      command,
+      args
+    );
   }
 
   constructor(id, source, target, objectId, command, args = {}) {
@@ -42,12 +49,22 @@ export class Event extends CustomEvent {
   get eid() {
     return this.detail.id;
   }
-
+  get id() {
+    return this.detail.id;
+  }
   /**
    * Event Object ID.
    */
   get oid() {
     return this.detail.objectId;
+  }
+  get objectId() {
+    return this.detail.objectId;
+  }
+
+  /** @type {string} */
+  get dataId() {
+    return this.detail.dataId;
   }
 
   /**
@@ -77,11 +94,6 @@ export class Event extends CustomEvent {
   /** @type {object} */
   get args() {
     return this.detail.args;
-  }
-
-  /** @type {string} */
-  get dataId() {
-    return this.detail.dataId;
   }
 
   with(details) {
