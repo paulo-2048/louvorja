@@ -180,8 +180,8 @@ export class Config {
     new TypedProperty(
       "startPage",
       "string",
-      "home",
-      "Application start page. Default 'home'. Can be either home, liturgy or tools"
+      "liturgy",
+      "Application start page. Default 'liturgy'. Can be either liturgy or tools"
     )
   );
   /**
