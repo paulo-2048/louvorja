@@ -1,0 +1,18 @@
+{
+  "title": "Sorteador",
+  "numberDraw": "Sorteio de Números",
+  "nameDraw": "Sorteio de Nomes",
+  "history": "Histórico",
+  "startNumber": "Número Inicial",
+  "endNumber": "Número Final",
+  "draw": "Sortear",
+  "enterName": "Digite um nome",
+  "addName": "Adicionar Nome",
+  "numberDrawResult": "Número Sorteado",
+  "nameDrawResult": "Nome Sorteado",
+  "footer": {
+    "total": "Total",
+    "sorted": "Sorteados",
+    "remaining": "Restantes"
+  }
+}
